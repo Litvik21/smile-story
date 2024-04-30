@@ -1,0 +1,38 @@
+body.isAdminPageTrue .navbar,
+body.isAdminPageTrue .navbar-toggler-icon,
+body.isAdminPageTrue .navbar-nav .nav-link,
+body.isAdminPageTrue .navbar-nav .nav-link.active,
+body.isAdminPageTrue .form-control,
+body.isAdminPageTrue .btn-outline-success,
+body.isAdminPageTrue .btn-outline-success:hover,
+body.isAdminPageTrue .logout {
+  background-color: #212121;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+body.isAdminPageTrue .navbar-toggler-icon {
+  background-color: #ffffff;
+}
+
+body.isAdminPageTrue .nav-link.active {
+  color: #8f6400;
+}
+
+body.isAdminPageTrue .form-control {
+  background-color: #424242;
+}
+
+body.isAdminPageTrue .btn-outline-success:hover {
+  background-color: #ffffff;
+  color: #121212;
+}
+
+body.isAdminPageTrue .logout {
+  color: #ffffff;
+}
+
+body.isAdminPageTrue .toSite {
+  color: #ffffff;
+  padding-right: 10px;
+}

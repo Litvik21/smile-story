@@ -1,0 +1,109 @@
+<div class="step-indicator">
+  <div class="step active">
+    <span class="step-number">1</span>
+    <span class="step-title">Данные пациента</span>
+  </div>
+  <div class="step active current">
+    <span class="step-number">2</span>
+    <span class="step-title">Выбор лечения</span>
+  </div>
+  <div class="step">
+    <span class="step-number">3</span>
+    <span class="step-title">Фото</span>
+  </div>
+  <div class="step">
+    <span class="step-number">4</span>
+    <span class="step-title">Скан</span>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="mb-4">Выбор лечения пациента</h2>
+  <form id="uploadForm" name="uploadForm">
+    <!-- Поля выбора -->
+    <div class="row">
+      <div class="col">
+        <h4>Лечение:</h4>
+        <div *ngFor="let medication of medications" class="form-check">
+          <input type="radio" name="selectedMedication" [value]="medication" [(ngModel)]="selectedMedication" class="form-check-input">
+          <label class="form-check-label">{{ medication }}</label>
+        </div>
+      </div>
+      <div class="col">
+        <h4>Выравнивание:</h4>
+        <div *ngFor="let alignment of alignments" class="form-check">
+          <input type="radio" name="selectedAlignment" [value]="alignment" [(ngModel)]="selectedAlignment" class="form-check-input">
+          <label class="form-check-label">{{ alignment }}</label>
+        </div>
+      </div>
+      <div class="col">
+        <h4>Экстракции:</h4>
+        <div *ngFor="let extraction of extractions" class="form-check">
+          <input type="radio" name="selectedExtraction" [value]="extraction" [(ngModel)]="selectedExtraction" class="form-check-input">
+          <label class="form-check-label">{{ extraction }}</label>
+        </div>
+      </div>
+      <div class="col">
+        <h4>Микроимпланты:</h4>
+        <div *ngFor="let microimplant of microimplants" class="form-check">
+          <input type="radio" name="selectedMicroimplant" [value]="microimplant" [(ngModel)]="selectedMicroimplant" class="form-check-input">
+          <label class="form-check-label">{{ microimplant }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col">
+        <h4 class="text-center">Коррекция:</h4>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Первая колонка -->
+      <div class="col">
+        <ul>
+          <!-- Выводим элементы списка для первой колонки -->
+          <li *ngFor="let correction of correctionOptions.slice(0, correctionOptions.length / 3)" class="form-check">
+            <input type="checkbox" [disabled]="!canEditCorrections" [value]="correction" [checked]="isSelected(correction)" (change)="toggleCategory(correction)" class="form-check-input">
+            <label class="form-check-label">{{ correction }}</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Вторая колонка -->
+      <div class="col">
+        <ul>
+          <!-- Выводим элементы списка для второй колонки -->
+          <li *ngFor="let correction of correctionOptions.slice(correctionOptions.length / 3, 2 * correctionOptions.length / 3)" class="form-check">
+            <input type="checkbox" [disabled]="!canEditCorrections" [value]="correction" [checked]="isSelected(correction)" (change)="toggleCategory(correction)" class="form-check-input">
+            <label class="form-check-label">{{ correction }}</label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Третья колонка -->
+      <div class="col">
+        <ul>
+          <!-- Выводим элементы списка для третьей колонки -->
+          <li *ngFor="let correction of correctionOptions.slice(2 * correctionOptions.length / 3)" class="form-check">
+            <input type="checkbox" [disabled]="!canEditCorrections" [value]="correction" [checked]="isSelected(correction)" (change)="toggleCategory(correction)" class="form-check-input">
+            <label class="form-check-label">{{ correction }}</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <label for="description">Дополнительное описание:</label>
+      <input type="text" class="form-control" id="description" placeholder="Введите описание" [(ngModel)]="description" name="description" required>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-auto">
+        <button class="btn btn-secondary" (click)="goToPreviousPage()">Назад</button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary" (click)="submit()" type="button">Далее</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,50 @@
+<div class="step-indicator">
+  <div class="step active">
+    <span class="step-number">1</span>
+    <span class="step-title">Данные пациента</span>
+  </div>
+  <div class="step active">
+    <span class="step-number">2</span>
+    <span class="step-title">Выбор лечения</span>
+  </div>
+  <div class="step active current">
+    <span class="step-number">3</span>
+    <span class="step-title">Фото</span>
+  </div>
+  <div class="step">
+    <span class="step-number">4</span>
+    <span class="step-title">Скан</span>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="mb-4">Загрузка сканов пациента</h2>
+  <form id="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+
+<!--    <div class="row justify-content-center text-center mt-4">-->
+<!--      <h6>Скан</h6>-->
+<!--      <label>-->
+<!--        <img class="photo-thumbnail" [src]="'assets/scanBackgroud/scan.png'" alt="Окклюзионный вид верхней челюсти">-->
+<!--      </label>-->
+<!--      <input name="scan" type="file" id="occlusalUpper" (change)="onFileSelected($event, 'occlusalUpper')" accept="*">-->
+<!--    </div>-->
+
+    <div class="row justify-content-center text-center mt-4">
+      <h6>Скан</h6>
+      <label for="file-upload">
+        <img id="file-preview" [src]="'assets/scanBackgroud/scan.png'" alt="Выбрать файл" (click)="fileInput.click()">
+      </label>
+      <input name="scan" #fileInput id="file-upload" type="file" accept="*" (change)="onFileSelected($event)">
+      <p id="file-status">{{ fileStatus }}</p>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-auto">
+        <button class="btn btn-secondary" (click)="goToPreviousPage()">Назад</button>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Далее</button>
+      </div>
+    </div>
+  </form>
+</div>
