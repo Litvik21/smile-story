@@ -49,16 +49,33 @@ public class FileUtil {
 
     public static String getMediaPath(MultipartFile file, String prefix) {
         try {
-            File converted = convertMultipartFileToFile(file);
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename == null || originalFilename.trim().isEmpty()) {
 
-            String fileName = generateUniqueFileName(file.getOriginalFilename());
+                Path source = Paths.get("ss-front/src/assets/photosBackground/default.png");
+                String fileName = generateUniqueFileName("default.png");
 
-            Path source = Paths.get(converted.getAbsolutePath());
-            Path destination = Paths.get(MEDIA_PATH + prefix + fileName);
-            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                String dir = MEDIA_PATH + prefix;
+                Files.createDirectories(Paths.get(dir));
 
-            converted.delete();
-            return destination.toString();
+                Path destination = Paths.get(MEDIA_PATH + prefix + fileName);
+                Files.copy(source, destination, StandardCopyOption.COPY_ATTRIBUTES);
+                return destination.toString();
+            } else {
+                File converted = convertMultipartFileToFile(file);
+
+                String fileName = generateUniqueFileName(file.getOriginalFilename());
+
+                String dir = MEDIA_PATH + prefix;
+                Files.createDirectories(Paths.get(dir));
+
+                Path source = Paths.get(converted.getAbsolutePath());
+                Path destination = Paths.get(MEDIA_PATH + prefix + fileName);
+                Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+
+                converted.delete();
+                return destination.toString();
+            }
         } catch (IOException e) {
             throw new RuntimeException("Cannot copy media. Mes: " + e.getMessage());
         }

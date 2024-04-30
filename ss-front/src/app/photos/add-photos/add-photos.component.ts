@@ -51,6 +51,13 @@ export class AddPhotosComponent {
     let form: HTMLFormElement | null = document.forms.namedItem('uploadForm');
     if (form) {
       let fd = new FormData(form);
+      console.log('Photo 1: ', fd.get("upperJawOcclusalView"))
+      console.log('Photo 2: ', fd.get("intraoralFrontalView"))
+      console.log('Photo 3: ', fd.get("lowerJawOcclusalView"))
+      console.log('Photo 4: ', fd.get("leftSideLateralView"))
+      console.log('Photo 5: ', fd.get("frontalView"))
+
+      fd.append("userId", this.localStor.getGeneralDataId());
 
       this.photoService.addPhoto(fd).subscribe(
         photo => {

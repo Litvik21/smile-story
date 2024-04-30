@@ -16,14 +16,8 @@ export class PhotoService {
     private http: HttpClient) {
   }
 
-  getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type':'application/octet-stream'
-    });
-  }
-
   addPhoto(formData: FormData): Observable<any> {
-    const headers = this.getHeaders();
+    const headers = new HttpHeaders();
     return this.http.post<any>(`${this.photoUrl}/add`, formData, { headers }).pipe(
       catchError(this.handleError<any>('addPhoto'))
     );

@@ -18,26 +18,30 @@ public class PhotoController {
     private final PhotoService service;
     private final PhotoMapper mapper;
 
-//    @PostMapping(path = "/add", consumes = MediaType.ALL_VALUE)
-//    public PhotoRespDto addPhoto(@RequestParam("period") int period,
-//                                 @RequestParam("frontalView") MultipartFile frontalView,
-//                                 @RequestParam("rightSideView") MultipartFile rightSideView,
-//                                 @RequestParam("leftSideView") MultipartFile leftSideView,
-//                                 @RequestParam("rightSideLateralView") MultipartFile rightSideLateralView,
-//                                 @RequestParam("leftSideLateralView") MultipartFile leftSideLateralView,
-//                                 @RequestParam("intraoralFrontalView") MultipartFile intraoralFrontalView,
-//                                 @RequestParam("upperJawOcclusalView") MultipartFile upperJawOcclusalView,
-//                                 @RequestParam("lowerJawOcclusalView") MultipartFile lowerJawOcclusalView) {
-//        PhotoReqDto reqDto = new PhotoReqDto(period, frontalView, rightSideView, leftSideView, rightSideLateralView, leftSideLateralView, intraoralFrontalView, upperJawOcclusalView, lowerJawOcclusalView);
-//        Photo photo = mapper.toModel(reqDto);
-//        return mapper.toDto(service.save(photo));
-//    }
-
-    @PostMapping("/add")
-    public PhotoRespDto addPhoto(@RequestBody PhotoReqDto dto) {
-        Photo photo = mapper.toModel(dto);
+    @PostMapping(path = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public PhotoRespDto addPhoto(@RequestParam("period") String period,
+                                 @RequestParam("userId") String userId,
+                                 @RequestParam("frontalView") MultipartFile frontalView,
+                                 @RequestParam("rightSideView") MultipartFile rightSideView,
+                                 @RequestParam("leftSideView") MultipartFile leftSideView,
+                                 @RequestParam("rightSideLateralView") MultipartFile rightSideLateralView,
+                                 @RequestParam("leftSideLateralView") MultipartFile leftSideLateralView,
+                                 @RequestParam("intraoralFrontalView") MultipartFile intraoralFrontalView,
+                                 @RequestParam("upperJawOcclusalView") MultipartFile upperJawOcclusalView,
+                                 @RequestParam("lowerJawOcclusalView") MultipartFile lowerJawOcclusalView) {
+        PhotoReqDto reqDto = new PhotoReqDto(period, userId, frontalView, rightSideView, leftSideView,
+                rightSideLateralView, leftSideLateralView,
+                intraoralFrontalView, upperJawOcclusalView,
+                lowerJawOcclusalView);
+        Photo photo = mapper.toModel(reqDto);
         return mapper.toDto(service.save(photo));
     }
+
+//    @PostMapping(path = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public PhotoRespDto addPhoto(@RequestBody PhotoReqDto dto) {
+//        Photo photo = mapper.toModel(dto);
+//        return mapper.toDto(service.save(photo));
+//    }
 
     @GetMapping("/{id}")
     public PhotoRespDto get(@PathVariable Long id) {
