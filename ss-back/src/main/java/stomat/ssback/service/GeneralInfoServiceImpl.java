@@ -2,6 +2,7 @@ package stomat.ssback.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import stomat.ssback.model.GeneralInfo;
 import stomat.ssback.model.Patient;
 import stomat.ssback.repository.GeneralInfoRepository;
@@ -54,5 +55,11 @@ public class GeneralInfoServiceImpl implements GeneralInfoService {
         return repository.findByFirstNameAndSurName(firstName, surName).orElseThrow(
                 () -> new RuntimeException("Cannot find general info by firstName and surName: " + firstName + " " + surName)
         );
+    }
+
+    @Transactional
+    @Override
+    public void remove(Long id) {
+        repository.deleteById(id);
     }
 }

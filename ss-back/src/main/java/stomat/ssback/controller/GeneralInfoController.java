@@ -22,6 +22,13 @@ public class GeneralInfoController {
         return mapper.toDto(service.save(generalInfo));
     }
 
+    @PutMapping("/update/{id}")
+    public GeneralInfoRespDto update(@PathVariable Long id,
+                                   @RequestBody GeneralInfoReqDto dto) {
+        GeneralInfo generalInfo = mapper.toModel(dto);
+        return mapper.toDto(service.update(generalInfo, id));
+    }
+
     @GetMapping("/{id}")
     public  GeneralInfoRespDto get(@PathVariable Long id) {
         return mapper.toDto(service.get(id));

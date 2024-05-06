@@ -24,7 +24,7 @@ public class GeneralInfoMapper {
     }
 
     public GeneralInfoRespDto toDto(GeneralInfo generalInfo) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         return new GeneralInfoRespDto(generalInfo.getId(),
                 generalInfo.getFirstName(),

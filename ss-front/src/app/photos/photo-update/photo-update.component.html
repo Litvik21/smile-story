@@ -1,0 +1,83 @@
+<div class="container">
+  <h2 class="mb-4">Загрузка фотографий пациента</h2>
+  <form id="uploadForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div class="form-group mb-4">
+      <label for="period">Период:</label>
+      <input name="period" type="text" class="form-control" id="period" placeholder="Введите период" [(ngModel)]="period" required>
+    </div>
+
+    <div class="row justify-content-center text-center mt-4">
+      <div class="col-md-4">
+        <h6>Окклюзионный вид верхней челюсти</h6>
+        <label for="upperJawOcclusalView">
+          <img class="photo-thumbnail" [src]="images.upperJawOcclusalView || checkUpperJawOcclusalView(photo.upperJawOcclusalPath)" alt="Окклюзионный вид верхней челюсти">
+        </label>
+        <input name="upperJawOcclusalView" type="file" id="upperJawOcclusalView" (change)="upperJawOcclusalViewSelected($event, 'upperJawOcclusalView')" accept="image/*">
+      </div>
+      <div class="col-md-4">
+        <h6>Внутриротовой вид спереди</h6>
+        <label for="intraoralFrontalView">
+          <img class="photo-thumbnail" [src]="images.intraoralFrontalView || checkIntraoralFrontalView(photo.intraoralFrontalPath)" alt="Внутриротовой вид спереди">
+        </label>
+        <input name="intraoralFrontalView" type="file" id="intraoralFrontalView" (change)="intraoralFrontalViewSelected($event, 'intraoralFrontalView')" accept="image/*">
+      </div>
+      <div class="col-md-4">
+        <h6>Окклюзионный вид нижней челюсти</h6>
+        <label for="lowerJawOcclusalView">
+          <img class="photo-thumbnail" [src]="images.lowerJawOcclusalView || checkLowerJawOcclusalView(photo.lowerJawOcclusalPath)" alt="Окклюзионный вид нижней челюсти">
+        </label>
+        <input name="lowerJawOcclusalView" type="file" id="lowerJawOcclusalView" (change)="lowerJawOcclusalViewSelected($event, 'lowerJawOcclusalView')" accept="image/*">
+      </div>
+    </div>
+
+    <div class="row justify-content-center text-center mt-4">
+      <div class="col-md-4">
+        <h6>Вид сбоку справа</h6>
+        <label for="rightSideLateralView">
+          <img class="photo-thumbnail" [src]="images.rightSideLateralView || checkRightSideLateralView(photo.rightSideLateralPath)" alt="Вид сбоку справа">
+        </label>
+        <input name="rightSideLateralView" type="file" id="rightSideLateralView" (change)="rightSideLateralViewSelected($event, 'rightSideLateralView')" accept="image/*">
+      </div>
+      <div class="col-md-4">
+        <h6>Вид сбоку слева</h6>
+        <label for="leftSideLateralView">
+          <img class="photo-thumbnail" [src]="images.leftSideLateralView || checkLeftSideLateralView(photo.leftSideLateralPath)" alt="Вид сбоку слева">
+        </label>
+        <input name="leftSideLateralView" type="file" id="leftSideLateralView" (change)="leftSideLateralViewSelected($event, 'leftSideLateralView')" accept="image/*">
+      </div>
+    </div>
+
+    <div class="row justify-content-center text-center mt-4">
+      <div class="col-md-4">
+        <h6>Фотография профиля слева</h6>
+        <label for="leftSideView">
+          <img class="photo-thumbnail" [src]="images.leftSideView || checkLeftSideView(photo.leftSidePath)" alt="Фотография профиля слева">
+        </label>
+        <input name="leftSideView" type="file" id="leftSideView" (change)="leftSideViewSelected($event, 'leftSideView')" accept="image/*">
+      </div>
+      <div class="col-md-4">
+        <h6>Фронтальное фото с улыбкой</h6>
+        <label for="frontalView">
+          <img class="photo-thumbnail" [src]="images.frontalView || checkFrontalView(photo.frontalPath)" alt="Фронтальное фото с улыбкой">
+        </label>
+        <input name="frontalView" type="file" id="frontalView" (change)="frontalViewSelected($event, 'frontalView')" accept="image/*">
+      </div>
+      <div class="col-md-4">
+        <h6>Фотография профиля справа</h6>
+        <label for="rightSideView">
+          <img class="photo-thumbnail" [src]="images.rightSideView || checkRightSideView(photo.rightSidePath)" alt="Фотография профиля справа">
+        </label>
+        <input name="rightSideView" type="file" id="rightSideView" (change)="rightSideViewSelected($event, 'rightSideView')" accept="image/*">
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-auto">
+        <button class="btn btn-secondary" (click)="goToPreviousPage()">Назад</button>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Обновить</button>
+      </div>
+    </div>
+  </form>
+</div>

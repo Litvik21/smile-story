@@ -35,6 +35,20 @@ export class PatientService {
     );
   }
 
+  removePatient(id: number): Observable<any> {
+    const url = `${this.patientUrl}/delete/${id}`;
+    return this.http.delete(url, this.httpOptions).pipe(
+      catchError(this.handleError<any>(`removePatient id=${id}`))
+    );
+  }
+
+  getPatientPhotoPeriods(id: number): Observable<any> {
+    const url = `${this.patientUrl}/all-periods/${id}`;
+    return this.http.get<any>(url, this.httpOptions).pipe(
+      catchError(this.handleError<any>(`getPatientPhotoPeriods id=${id}`))
+    );
+  }
+
   findByFirstName(firstName: string): Observable<Patient[]> {
     const url = `${this.patientUrl}/name?name=${firstName}`;
     return this.http.get<Patient[]>(url, this.httpOptions).pipe(

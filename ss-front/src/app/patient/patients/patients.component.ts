@@ -1,21 +1,24 @@
-import { Component } from '@angular/core';
-import {Patient} from "../model/Patient";
-import {PatientService} from "../service/patient.service";
-import {GeneralInfoService} from "../service/generalInfo.service";
-import {WishesMedicationService} from "../service/wishesMedication.service";
+import {Component, OnInit} from '@angular/core';
+import {Patient} from "../../model/Patient";
+import {PatientService} from "../../service/patient.service";
+import {GeneralInfoService} from "../../service/generalInfo.service";
+import {WishesMedicationService} from "../../service/wishesMedication.service";
 import {Router} from "@angular/router";
-import {PhotoService} from "../service/photo.service";
-import {ScanSerivce} from "../service/scan.serivce";
+import {PhotoService} from "../../service/photo.service";
+import {ScanSerivce} from "../../service/scan.serivce";
 import {forkJoin, map, switchMap} from "rxjs";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-patients',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf
+  ],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.scss'
 })
-export class PatientsComponent {
+export class PatientsComponent  implements OnInit  {
   patients: Patient[] = [];
 
   constructor(private patientService: PatientService,
@@ -29,80 +32,6 @@ export class PatientsComponent {
     this.getPatients();
   }
 
-  // getPatients(): void {
-  //   this.patientService.getPatients().subscribe(
-  //     patients => {
-  //       if (patients.length < 0) {
-  //         console.log("Don't have posts yet!")
-  //         return;
-  //       }
-  //       const getGeneralInfoObservables = [];
-  //       const getMedObservables = [];
-  //
-  //       for (const patient of patients) {
-  //         getGeneralInfoObservables.push(this.generalInfo.getGeneralInfo(patient.generalInfoId));
-  //         getMedObservables.push(this.medService.getWishesMedication(patient.wishesMedicationId));
-  //         if (patient.photoIds.length > 0) {
-  //           this.setPhotos(patient);
-  //         }
-  //         if (patient.scanIds.length > 0) {
-  //
-  //         }
-  //       }
-  //
-  //       forkJoin(getGeneralInfoObservables).subscribe(
-  //         generalInfos => {
-  //           for (let i = 0; i < patients.length; i++) {
-  //             patients[i].generalInfo = generalInfos[i];
-  //           }
-  //           this.patients = patients;
-  //         }
-  //       );
-  //
-  //       forkJoin(getMedObservables).subscribe(
-  //         meds => {
-  //           for (let i = 0; i < patients.length; i++) {
-  //             patients[i].wishesMedication = meds[i];
-  //           }
-  //           this.patients = patients;
-  //         }
-  //       );
-  //     }
-  //   );
-  // }
-  //
-  // setPhotos(patient: any): void {
-  //   const photoObservables = [];
-  //
-  //   for (const photoId of patient.photoIds) {
-  //     photoObservables.push(this.photoService.getPhoto(photoId));
-  //   }
-  //
-  //   forkJoin(photoObservables).subscribe(
-  //     photos => {
-  //       patient.photos = photos.map(photo => {
-  //         return {
-  //           id: photo.id,
-  //           period: photo.period,
-  //           frontalPath: photo.frontalPath,
-  //           rightSidePath: photo.rightSidePath,
-  //           leftSidePath: photo.leftSidePath,
-  //           rightSideLateralPath: photo.rightSideLateralPath,
-  //           leftSideLateralPath: photo.leftSideLateralPath,
-  //           intraoralFrontalPath: photo.intraoralFrontalPath,
-  //           upperJawOcclusalPath: photo.upperJawOcclusalPath,
-  //           lowerJawOcclusalPath: photo.lowerJawOcclusalPath
-  //         };
-  //       });
-  //
-  //       const patientIndex = this.patients.findIndex(p => p.id === patient.id);
-  //       if (patientIndex !== -1) {
-  //         this.patients = this.patients.map(p => (p.id === patient.id ? patient : p));
-  //       }
-  //     }
-  //   );
-  // }
-
   getPatients(): void {
     this.patientService.getPatients().subscribe(
       patients => {
@@ -110,6 +39,7 @@ export class PatientsComponent {
           console.log("Don't have posts yet!")
           return;
         }
+        console.log('1 PAT', patients)
 
         const getGeneralInfoObservables = [];
         const getWishesMedicationObservables = [];
@@ -119,9 +49,6 @@ export class PatientsComponent {
           getWishesMedicationObservables.push(this.medService.getWishesMedication(patient.wishesMedicationId));
           if (patient.photoIds.length > 0) {
             this.setPhotos(patient);
-          }
-          if (patient.scanIds.length > 0) {
-            this.setScans(patient);
           }
         }
 
@@ -141,6 +68,7 @@ export class PatientsComponent {
           }
         );
 
+        console.log(patients)
         this.patients = patients;
       }
     );
@@ -200,6 +128,16 @@ export class PatientsComponent {
         }
       }
     );
+  }
+
+  editPatient(id: any) {
+    console.log("GOOD")
+    //this.router.navigate(['/', id]);
+  }
+
+  viewPatient(id: any) {
+    console.log("GOOD")
+    this.router.navigate(['/view', id]);
   }
 
 

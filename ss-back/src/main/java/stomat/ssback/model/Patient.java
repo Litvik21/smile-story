@@ -27,7 +27,7 @@ public class Patient {
     private WishesMedication wishesMedication;
 
     @Column(name = "photos")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Photo> photos;
 
     @Column(name = "scans")

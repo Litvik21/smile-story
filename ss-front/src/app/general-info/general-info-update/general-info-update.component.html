@@ -1,20 +1,5 @@
-<div class="step-indicator">
-  <div class="step active current">
-    <span class="step-number">1</span>
-    <span class="step-title">Данные пациента</span>
-  </div>
-  <div class="step">
-    <span class="step-number">2</span>
-    <span class="step-title">Выбор лечения</span>
-  </div>
-  <div class="step">
-    <span class="step-number">3</span>
-    <span class="step-title">Фото</span>
-  </div>
-</div>
-
 <div class="container">
-  <h2 class="mb-4">Добавление информации о пациенте</h2>
+  <h2 class="mb-4">Редактирование информации о пациенте</h2>
   <form id="uploadForm" name="uploadForm">
     <div class="form-group mb-4">
       <label for="firstName">Имя</label>
@@ -40,7 +25,7 @@
         <button class="btn btn-secondary" (click)="goToPreviousPage()">Назад</button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-primary" (click)="submit()" type="button">Далее</button>
+        <button class="btn btn-primary" (click)="submit()" type="button">Обновить</button>
       </div>
     </div>
   </form>

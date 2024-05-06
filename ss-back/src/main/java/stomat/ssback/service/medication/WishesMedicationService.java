@@ -13,4 +13,6 @@ public interface WishesMedicationService {
     WishesMedication get(Long id);
 
     List<WishesMedication> getAll();
+
+    void remove(Long id);
 }

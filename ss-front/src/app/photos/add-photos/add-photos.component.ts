@@ -5,6 +5,7 @@ import {ImageFields} from "../../model/ImageFields";
 import {LocalStor} from "../../service/localStor";
 import {FormsModule} from "@angular/forms";
 import {PhotoService} from "../../service/photo.service";
+import {PatientService} from "../../service/patient.service";
 
 @Component({
   selector: 'app-add-photos',
@@ -17,6 +18,7 @@ import {PhotoService} from "../../service/photo.service";
 })
 export class AddPhotosComponent {
   period: string = "0";
+  patient: any;
 
   images: ImageFields = {
     upperJawOcclusalView: null,
@@ -40,7 +42,8 @@ export class AddPhotosComponent {
 
   constructor(private router: Router,
               private photoService: PhotoService,
-              private localStor: LocalStor) {
+              private localStor: LocalStor,
+              private patientService: PatientService) {
   }
 
 
@@ -51,11 +54,6 @@ export class AddPhotosComponent {
     let form: HTMLFormElement | null = document.forms.namedItem('uploadForm');
     if (form) {
       let fd = new FormData(form);
-      console.log('Photo 1: ', fd.get("upperJawOcclusalView"))
-      console.log('Photo 2: ', fd.get("intraoralFrontalView"))
-      console.log('Photo 3: ', fd.get("lowerJawOcclusalView"))
-      console.log('Photo 4: ', fd.get("leftSideLateralView"))
-      console.log('Photo 5: ', fd.get("frontalView"))
 
       fd.append("userId", this.localStor.getGeneralDataId());
 
@@ -64,10 +62,27 @@ export class AddPhotosComponent {
           console.log(photo)
           this.localStor.setPhotoId(photo.id);
           console.log('Photo ID: ', this.localStor.getPhotoId())
-          this.router.navigate(['/scans/add']);
+          this.savePatient();
+          this.router.navigate(['/patients']).then(() => window.location.reload());
+          //this.router.navigate(['/patients']);
         }
       );
     }
+  }
+
+  savePatient(): void {
+    this.patient = {
+      generalInfoId: this.localStor.getGeneralDataId(),
+      wishesMedicationId: this.localStor.getMedId(),
+      photoId: this.localStor.getPhotoId()
+    };
+    console.log('Patient to save:', this.patient)
+    this.patientService.addPatient(this.patient).subscribe(
+      patient =>
+        console.log('Saved patient', patient)
+    )
+
+    this.localStor.removeToken();
   }
 
   goToPreviousPage(): void {

@@ -26,8 +26,15 @@ export class GeneralInfoService {
     );
   }
 
+  updateGeneralInfo(data: any, id: number): Observable<any> {
+    const url = `${this.generalInfoUrl}/update/${id}`;
+    return this.http.put<any>(url, data, this.httpOptions).pipe(
+      catchError(this.handleError<any>('updateGeneralInfo'))
+    );
+  }
+
   getGeneralInfo(id: number): Observable<GeneralInfo> {
-    const url = `${this.generalInfoUrl}/get/${id}`;
+    const url = `${this.generalInfoUrl}/${id}`;
     return this.http.get<GeneralInfo>(url, this.httpOptions).pipe(
       catchError(this.handleError<GeneralInfo>(`getGeneralInfo id=${id}`))
     );

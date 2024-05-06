@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import stomat.ssback.model.GeneralInfo;
 import stomat.ssback.model.Patient;
+import stomat.ssback.model.photo.Photo;
 import stomat.ssback.repository.PatientRepository;
-
+import stomat.ssback.service.medication.WishesMedicationService;
+import stomat.ssback.service.photo.PhotoService;
 import java.util.List;
 
 @Service
@@ -14,6 +16,8 @@ import java.util.List;
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository repository;
     private final GeneralInfoService generalInfoService;
+    private final RemovePhotos removePhotos;
+    private final WishesMedicationService wishesMedicationService;
 
     @Override
     public Patient save(Patient patient) {
@@ -22,20 +26,13 @@ public class PatientServiceImpl implements PatientService {
 
     @Transactional
     @Override
-    public void remove(Long patientId) {
+    public Patient remove(Long patientId) {
         Patient patient = get(patientId);
+        generalInfoService.remove(patient.getGeneralInfo().getId());
+        removePhotos.remove(patient.getPhotos().get(0).getFrontalPath());
+        wishesMedicationService.remove(patient.getWishesMedication().getId());
         repository.delete(patient);
-
-//        try {
-//            File image = new File(patient.getImageName());
-//            image.delete();
-//            Files.walk(Paths.get(video.getFileName()))
-//                    .sorted(Comparator.reverseOrder())
-//                    .map(Path::toFile)
-//                    .forEach(File::delete);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        return patient;
     }
 
     @Override
@@ -49,6 +46,14 @@ public class PatientServiceImpl implements PatientService {
         return repository.findById(patientId).orElseThrow(
                 () -> new RuntimeException("Cannot find patient by id:" + patientId)
         );
+    }
+
+    @Override
+    public List<Integer> getAllPeriods(Long patientId) {
+        Patient patient = get(patientId);
+        return patient.getPhotos().stream()
+                .map(Photo::getPeriod)
+                .toList();
     }
 
     @Override

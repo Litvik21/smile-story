@@ -1,0 +1,155 @@
+#uploadForm {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  background-color: #9b9b9b;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.photo-thumbnail {
+  width: 100px;
+  height: 100px;
+}
+
+h6 {
+  word-wrap: break-word; /* Разбивает длинные слова */
+}
+
+input[type=file] {
+  display: none;
+}
+
+/* Стили для заголовка */
+h2 {
+  color: #343a40;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Стили для формы */
+form {
+  margin-bottom: 0;
+}
+
+/* Стили для элементов формы */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  color: #6c757d;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  border-color: #6c757d;
+}
+
+select.form-control {
+  appearance: none;
+  padding: 7px 12px;
+}
+
+input[type="date"].form-control {
+  padding: 7px 12px;
+}
+
+/* Стили для кнопок */
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border-color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Стили для кнопок внутри колонок */
+.col-auto button {
+  margin-bottom: 10px;
+}
+
+/* Step style*/
+.step-indicator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.step {
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+
+.step-number {
+  display: block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  border: 2px solid #007bff;
+  color: #007bff;
+  font-weight: bold;
+  margin: 0 auto 10px;
+}
+
+.step-title {
+  color: #6c757d;
+}
+
+.step.active .step-number {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.current {
+  font-weight: bold;
+  color: #007bff;
+  text-shadow: 0 0 5px rgba(0,123,255,0.5); /* Добавляем свечение */
+}
+
+.step.active .step-title {
+  color: #1d222c;
+}
+
+.step.active::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 100%;
+  transform: translateX(-50%);
+  width: calc(100% - 15px);
+  height: 2px;
+  background-color: #007bff;
+}
+
+.step:last-child.active::after {
+  display: none;
+}

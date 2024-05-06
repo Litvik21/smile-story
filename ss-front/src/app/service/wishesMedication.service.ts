@@ -23,6 +23,13 @@ export class WishesMedicationService {
     );
   }
 
+  updateWishesMedication(data: any, id: number): Observable<any> {
+    const url = `${this.medicationUrl}/update/${id}`;
+    return this.http.put<any>(url, data, this.httpOptions).pipe(
+      catchError(this.handleError<any>('updateWishesMedication'))
+    );
+  }
+
   getMedications(): Observable<WishesMedication[]> {
     const url = `${this.medicationUrl}/all`;
     return this.http.get<WishesMedication[]>(url, this.httpOptions).pipe(

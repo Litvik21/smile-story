@@ -1,0 +1,124 @@
+<div class="container">
+<!--  <div class="row">-->
+<!--    <div class="col-md-6">-->
+<!--      <div class="patient-info">-->
+<!--        <h2>Информация о пациенте:</h2>-->
+<!--        <div class="photo-container">-->
+<!--          <img [src]="firstPhoto.frontalPath" alt="Фото пациента" class="photo-thumbnail-first">-->
+<!--        </div>-->
+<!--        <div class="patient-details">-->
+<!--          <p><strong>Имя:</strong> {{ generalInfo.firstName }}</p>-->
+<!--          <p><strong>Фамилия:</strong> {{ generalInfo.surName }}</p>-->
+<!--          <p><strong>Дата рождения:</strong> {{ generalInfo.birthDate }}</p>-->
+<!--          <p><strong>Пол:</strong> {{ mapSex(generalInfo.sex) }}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-6">-->
+<!--      <div class="treatment-info">-->
+<!--        <h2>Лечение:</h2>-->
+<!--        <p><strong>Медикаменты:</strong> {{ mapMedication(medication.medication) }}</p>-->
+<!--        <p><strong>Выравнивание:</strong> {{ mapAlignment(medication.alignment) }}</p>-->
+<!--        <p><strong>Экстракции:</strong> {{ mapExtraction(medication.extraction) }}</p>-->
+<!--        <p><strong>Микроимпланты:</strong> {{ mapMicroimplant(medication.microimplant) }}</p>-->
+<!--        <h3>Коррекция:</h3>-->
+<!--        <ul>-->
+<!--          <li *ngFor="let correction of medication.correction">{{ mapCorrection(correction) }}</li>-->
+<!--        </ul>-->
+<!--        <p><strong>Дополнительное описание:</strong> {{ medication.description }}</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="patient-info">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 class="mb-0">Информация о пациенте:</h2>
+        </div>
+        <div class="photo-container">
+          <img [src]="firstPhoto.frontalPath" alt="Фото пациента" class="photo-thumbnail-first">
+        </div>
+        <div class="patient-details">
+          <p><strong>Имя:</strong> {{ generalInfo.firstName }}</p>
+          <p><strong>Фамилия:</strong> {{ generalInfo.surName }}</p>
+          <p><strong>Дата рождения:</strong> {{ generalInfo.birthDate }}</p>
+          <p><strong>Пол:</strong> {{ mapSex(generalInfo.sex) }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="treatment-info">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 class="mb-0">Лечение:</h2>
+          <div>
+            <p><button class="btn btn-secondary" (click)="editGeneralInfo(generalInfo.id, patient.id)">Редактировать информацию</button></p>
+            <p><button class="btn btn-secondary" (click)="editTreatment(medication.id, patient.id)">Редактировать лечение</button></p>
+          </div>
+        </div>
+        <p><strong>Медикаменты:</strong> {{ mapMedication(medication.medication) }}</p>
+        <p><strong>Выравнивание:</strong> {{ mapAlignment(medication.alignment) }}</p>
+        <p><strong>Экстракции:</strong> {{ mapExtraction(medication.extraction) }}</p>
+        <p><strong>Микроимпланты:</strong> {{ mapMicroimplant(medication.microimplant) }}</p>
+        <h3>Коррекция:</h3>
+        <ul>
+          <li *ngFor="let correction of medication.correction">{{ mapCorrection(correction) }}</li>
+        </ul>
+        <p><strong>Дополнительное описание:</strong> {{ medication.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="period-selector">
+    <label for="period">Период:</label>
+    <select id="period" [(ngModel)]="currentPeriod" (change)="onPeriodChange()">
+      <option *ngFor="let period of periods" [value]="period">{{ period }}</option>
+    </select>
+    <button class="btn btn-primary" (click)="getPhotosByPeriod()">Найти фото за выбранный период</button>
+    <button class="btn btn-primary" *ngIf="loadPhotos" (click)="showPhoto()">Показать/Скрыть</button>
+    <button class="btn btn-secondary" *ngIf="loadPhotos" (click)="updatePhoto(photo.id, patient.id, generalInfo.id)">Редактировать</button>
+  </div>
+
+  <div *ngIf="showPhotos" class="photo-gallery">
+    <div class="row justify-content-center text-center mt-4">
+      <div class="col-md-4">
+        <h6>Окклюзионный вид верхней челюсти</h6>
+        <img class="photo-thumbnail" [src]="photo.upperJawOcclusalPath" alt="Окклюзионный вид верхней челюсти">
+      </div>
+      <div class="col-md-4">
+        <h6>Внутриротовой вид спереди</h6>
+        <img class="photo-thumbnail" [src]="photo.intraoralFrontalPath" alt="Внутриротовой вид спереди">
+      </div>
+      <div class="col-md-4">
+        <h6>Окклюзионный вид нижней челюсти</h6>
+        <img class="photo-thumbnail" [src]="photo.lowerJawOcclusalPath" alt="Окклюзионный вид нижней челюсти">
+      </div>
+    </div>
+
+    <div class="row justify-content-center text-center mt-4">
+      <div class="col-md-4">
+        <h6>Вид сбоку справа</h6>
+        <img class="photo-thumbnail" [src]="photo.rightSideLateralPath" alt="Вид сбоку справа">
+      </div>
+      <div class="col-md-4">
+        <h6>Вид сбоку слева</h6>
+        <img class="photo-thumbnail" [src]="photo.leftSideLateralPath" alt="Вид сбоку слева">
+      </div>
+    </div>
+
+    <div class="row justify-content-center text-center mt-4">
+      <div class="col-md-4">
+        <h6>Фотография профиля слева</h6>
+        <img class="photo-thumbnail" [src]="photo.leftSidePath" alt="Фотография профиля слева">
+      </div>
+      <div class="col-md-4">
+        <h6>Фронтальное фото с улыбкой</h6>
+        <img class="photo-thumbnail" [src]="photo.frontalPath" alt="Фронтальное фото с улыбкой">
+      </div>
+      <div class="col-md-4">
+        <h6>Фотография профиля справа</h6>
+        <img class="photo-thumbnail" [src]="photo.rightSidePath" alt="Фотография профиля справа">
+      </div>
+    </div>
+  </div>
+</div>

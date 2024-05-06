@@ -23,12 +23,34 @@ export class PhotoService {
     );
   }
 
+  deleteOldPhotos(formData: FormData): Observable<any> {
+    const url = `${this.photoUrl}/delete/old`;
+    return this.http.post<any>(url, formData, this.httpOptions).pipe(
+      catchError(this.handleError<any>('deleteOldPhotos', []))
+    );
+  }
+
+  updatePhoto(data: any, id: number): Observable<any> {
+    const headers = new HttpHeaders();
+    const url = `${this.photoUrl}/update/${id}`;
+    return this.http.put<any>(url, data, { headers }).pipe(
+      catchError(this.handleError<any>('updatePhoto'))
+    );
+  }
+
   getPhotos(): Observable<Photo[]> {
     const url = `${this.photoUrl}/all`;
     return this.http.get<Photo[]>(url, this.httpOptions).pipe(
       catchError(this.handleError<Photo[]>('getPhotos', []))
     );
   }
+
+  // getPhotosOfPatient(formData: FormData): Observable<Photo[]> {
+  //   const url = `${this.photoUrl}/all/by-patient`;
+  //   return this.http.get<Photo[]>(url, formData, this.httpOptions).pipe(
+  //     catchError(this.handleError<Photo[]>('getPhotosOfPatient', []))
+  //   );
+  // }
 
   getPhoto(id: number): Observable<Photo> {
     const url = `${this.photoUrl}/${id}`;
@@ -37,10 +59,17 @@ export class PhotoService {
     );
   }
 
-  findByFirstName(firstName: string): Observable<Patient[]> {
-    const url = `${this.photoUrl}/name?name=${firstName}`;
-    return this.http.get<Patient[]>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Patient[]>('findByFirstName', []))
+  getPhotoForDelete(id: number): Observable<Photo> {
+    const url = `${this.photoUrl}/get/for-delete/${id}`;
+    return this.http.get<Photo>(url, this.httpOptions).pipe(
+      catchError(this.handleError<Photo>(`getPhoto id=${id}`))
+    );
+  }
+
+  getPhotosOfPatient(ids: number[]): Observable<Photo[]> {
+    const url = `${this.photoUrl}/all/by-patient?ids=${ids}`;
+    return this.http.get<Photo[]>(url, this.httpOptions).pipe(
+      catchError(this.handleError<Photo[]>('getPhotosOfPatient', []))
     );
   }
 

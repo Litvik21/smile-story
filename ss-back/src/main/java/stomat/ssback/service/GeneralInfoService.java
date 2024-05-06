@@ -19,4 +19,5 @@ public interface GeneralInfoService {
 
     GeneralInfo findByFirstNameAndSurName(String firstName, String surName);
 
+    void remove(Long id);
 }

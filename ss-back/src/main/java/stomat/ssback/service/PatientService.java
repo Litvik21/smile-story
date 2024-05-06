@@ -7,11 +7,13 @@ import java.util.List;
 public interface PatientService {
     Patient save(Patient patient);
 
-    void remove(Long patientId);
+    Patient remove(Long patientId);
 
     Patient update(Patient patient, Long id);
 
     Patient get(Long patientId);
+
+    List<Integer> getAllPeriods(Long patientId);
 
     List<Patient> getAll();
 

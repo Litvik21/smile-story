@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import stomat.ssback.dto.PatientReqDto;
 import stomat.ssback.dto.PatientRespDto;
+import stomat.ssback.dto.PatientSaveDto;
 import stomat.ssback.model.Patient;
 import stomat.ssback.model.photo.Photo;
 import stomat.ssback.model.scan.Scan;
@@ -33,13 +34,22 @@ public class PatientMapper {
         return patient;
     }
 
+    public Patient toModel(PatientSaveDto dto) {
+        Patient patient = new Patient();
+        patient.setGeneralInfo(generalInfoService.get(dto.generalInfoId()));
+        patient.setWishesMedication(wishesMedicationService.get(dto.wishesMedicationId()));
+        patient.setPhotos(List.of(photoService.get(dto.photoId())));
+        patient.setAddingDate(LocalDate.now());
+
+        return patient;
+    }
+
     public PatientRespDto toDto(Patient patient) {
         return new PatientRespDto(
                 patient.getId(),
                 patient.getGeneralInfo().getId(),
                 patient.getWishesMedication().getId(),
                 patient.getPhotos().stream().map(Photo::getId).toList(),
-                patient.getScans().stream().map(Scan::getId).toList(),
                 patient.getAddingDate()
                 );
     }

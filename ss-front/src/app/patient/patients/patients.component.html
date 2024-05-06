@@ -1,0 +1,25 @@
+<table class="patients-table">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Имя</th>
+    <th>Фамилия</th>
+    <th>Дата рождения</th>
+    <th>Фото</th>
+    <th>Действия</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let patient of patients; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ patient.generalInfo?.firstName }}</td>
+    <td>{{ patient.generalInfo?.surName }}</td>
+    <td>{{ patient.generalInfo?.birthDate }}</td>
+    <td><img [src]="patient.photos[0].frontalPath" alt="Фото пациента" class="photo-thumbnail" ></td>
+    <td>
+      <button class="btn-edit" (click)="editPatient(patient.id)">Редактировать</button>
+      <button class="btn-view" (click)="viewPatient(patient.id)">Просмотр</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -2,6 +2,7 @@ package stomat.ssback.service.medication;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import stomat.ssback.model.medication.WishesMedication;
 import stomat.ssback.repository.medication.WishesMedicationRepository;
 import java.util.List;
@@ -32,5 +33,11 @@ public class WishesMedicationServiceImpl implements WishesMedicationService {
     @Override
     public List<WishesMedication> getAll() {
         return repository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public void remove(Long id) {
+        repository.deleteById(id);
     }
 }

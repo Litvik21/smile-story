@@ -1,0 +1,85 @@
+.container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.patient-info h2,
+.treatment-info h2 {
+  color: #343a40;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.patient-info p,
+.treatment-info p {
+  color: #343a40;
+  font-size: 16px;
+}
+
+.treatment-info h3 {
+  color: #343a40;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.treatment-info ul {
+  padding-left: 0;
+}
+
+.treatment-info ul li {
+  color: #343a40;
+  font-size: 16px;
+  list-style: none;
+}
+
+.period-selector label,
+.period-selector select,
+.period-selector button {
+  margin-right: 10px;
+}
+
+.photo-gallery .col-md-4 h6 {
+  color: #343a40;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.photo-thumbnail {
+  width: 60%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.photo-thumbnail-first {
+  width: 30%;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-primary:focus {
+  box-shadow: none;
+}
+
+.btn-primary:active {
+  background-color: #0056b3;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
