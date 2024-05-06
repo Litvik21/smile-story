@@ -9,6 +9,7 @@ import {ViewPatientComponent} from "./patient/view-patient/view-patient.componen
 import {GeneralInfoUpdateComponent} from "./general-info/general-info-update/general-info-update.component";
 import {MedicationUpdateComponent} from "./wishes-medication/medication-update/medication-update.component";
 import {PhotoUpdateComponent} from "./photos/photo-update/photo-update.component";
+import {AddPhotosToListComponent} from "./photos/add-photos-to-list/add-photos-to-list.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "patients" },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'general-info/update/:infoId/:patientId', component: GeneralInfoUpdateComponent },
   { path: 'medication/update/:medId/:patientId', component: MedicationUpdateComponent },
   { path: 'photo/update/:photoId/:patientId/:infoId', component: PhotoUpdateComponent },
+  { path: 'photo/add-to-list/:patientId/:infoId', component: AddPhotosToListComponent },
 ];
 
 @NgModule({

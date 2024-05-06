@@ -77,6 +77,7 @@
     <button class="btn btn-primary" (click)="getPhotosByPeriod()">Найти фото за выбранный период</button>
     <button class="btn btn-primary" *ngIf="loadPhotos" (click)="showPhoto()">Показать/Скрыть</button>
     <button class="btn btn-secondary" *ngIf="loadPhotos" (click)="updatePhoto(photo.id, patient.id, generalInfo.id)">Редактировать</button>
+    <button class="btn btn-secondary add-photo" *ngIf="loadPhotos" (click)="addNewPhotoToList(patient.id, generalInfo.id)">Добавить еще фото</button>
   </div>
 
   <div *ngIf="showPhotos" class="photo-gallery">

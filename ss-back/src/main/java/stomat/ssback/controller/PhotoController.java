@@ -42,6 +42,7 @@ public class PhotoController {
     @PostMapping(path = "/add/to-list", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public List<PhotoRespDto> addPhotoToList(@RequestParam("period") String period,
                                  @RequestParam("userId") String userId,
+                                 @RequestParam("patientId") String patientId,
                                  @RequestParam("frontalView") MultipartFile frontalView,
                                  @RequestParam("rightSideView") MultipartFile rightSideView,
                                  @RequestParam("leftSideView") MultipartFile leftSideView,
@@ -55,7 +56,7 @@ public class PhotoController {
                 intraoralFrontalView, upperJawOcclusalView,
                 lowerJawOcclusalView);
         Photo photo = mapper.toModel(reqDto);
-        return service.addPhoto(photo, Long.parseLong(userId)).stream().map(mapper::toDto).toList();
+        return service.addPhoto(photo, Long.parseLong(patientId)).stream().map(mapper::toDto).toList();
     }
 
     @PutMapping("/update/{id}")

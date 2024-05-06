@@ -140,7 +140,10 @@ export class ViewPatientComponent implements OnInit {
   }
 
   getPhotosByPeriod(): void {
-    this.photo = this.photos.find(photo => photo.period === this.currentPeriod)!;
+    console.log('CURRENT PERIOD: ', Number(this.currentPeriod));
+    this.photo = this.photos.find(photo => photo.period === Number(this.currentPeriod))!;
+    console.log('photo: ', this.photo);
+    console.log('PHOTOS: ', this.photos);
     this.loadPhotos = true;
   }
 
@@ -150,5 +153,9 @@ export class ViewPatientComponent implements OnInit {
 
   updatePhoto(photoId: any, patientId: any, infoId: any): void {
     this.router.navigate(['/photo/update', photoId, patientId, infoId]);
+  }
+
+  addNewPhotoToList(patientId: any, infoId: any): void {
+    this.router.navigate(['photo/add-to-list/', patientId, infoId]);
   }
 }

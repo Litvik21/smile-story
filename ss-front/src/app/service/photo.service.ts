@@ -23,6 +23,13 @@ export class PhotoService {
     );
   }
 
+  addPhotoToList(formData: FormData): Observable<any> {
+    const headers = new HttpHeaders();
+    return this.http.post<any>(`${this.photoUrl}/add/to-list`, formData, { headers }).pipe(
+      catchError(this.handleError<any>('addPhoto'))
+    );
+  }
+
   deleteOldPhotos(formData: FormData): Observable<any> {
     const url = `${this.photoUrl}/delete/old`;
     return this.http.post<any>(url, formData, this.httpOptions).pipe(
