@@ -7,6 +7,8 @@ import stomat.ssback.dto.GeneralInfoRespDto;
 import stomat.ssback.mapper.GeneralInfoMapper;
 import stomat.ssback.model.GeneralInfo;
 import stomat.ssback.service.GeneralInfoService;
+import stomat.ssback.utils.PhotosUtil;
+
 import java.util.List;
 
 @RestController
@@ -15,6 +17,7 @@ import java.util.List;
 public class GeneralInfoController {
     private final GeneralInfoMapper mapper;
     private final GeneralInfoService service;
+    private final PhotosUtil photosUtil;
 
     @PostMapping("/add")
     public GeneralInfoRespDto addGeneralInfo(@RequestBody GeneralInfoReqDto dto) {
@@ -26,6 +29,7 @@ public class GeneralInfoController {
     public GeneralInfoRespDto update(@PathVariable Long id,
                                    @RequestBody GeneralInfoReqDto dto) {
         GeneralInfo generalInfo = mapper.toModel(dto);
+        photosUtil.renameFolder(dto.patientId(), dto.surName());
         return mapper.toDto(service.update(generalInfo, id));
     }
 

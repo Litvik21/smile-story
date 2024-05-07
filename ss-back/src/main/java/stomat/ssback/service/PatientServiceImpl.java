@@ -8,7 +8,8 @@ import stomat.ssback.model.Patient;
 import stomat.ssback.model.photo.Photo;
 import stomat.ssback.repository.PatientRepository;
 import stomat.ssback.service.medication.WishesMedicationService;
-import stomat.ssback.service.photo.PhotoService;
+import stomat.ssback.utils.PhotosUtil;
+
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ import java.util.List;
 public class PatientServiceImpl implements PatientService {
     private final PatientRepository repository;
     private final GeneralInfoService generalInfoService;
-    private final RemovePhotos removePhotos;
+//    private final PhotosUtil photosUtil;
     private final WishesMedicationService wishesMedicationService;
 
     @Override
@@ -29,7 +30,7 @@ public class PatientServiceImpl implements PatientService {
     public Patient remove(Long patientId) {
         Patient patient = get(patientId);
         generalInfoService.remove(patient.getGeneralInfo().getId());
-        removePhotos.remove(patient.getPhotos().get(0).getFrontalPath());
+//        photosUtil.remove(patient.getPhotos().get(0).getFrontalPath());
         wishesMedicationService.remove(patient.getWishesMedication().getId());
         repository.delete(patient);
         return patient;

@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import stomat.ssback.dto.*;
 import stomat.ssback.mapper.PhotoMapper;
 import stomat.ssback.model.photo.Photo;
-import stomat.ssback.service.RemovePhotos;
+import stomat.ssback.utils.PhotosUtil;
 import stomat.ssback.service.photo.PhotoService;
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 public class PhotoController {
     private final PhotoService service;
     private final PhotoMapper mapper;
-    private final RemovePhotos removePhotos;
+    private final PhotosUtil photosUtil;
 
     @PostMapping(path = "/add", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public PhotoRespDto addPhoto(@RequestParam("period") String period,
@@ -63,13 +63,13 @@ public class PhotoController {
     public PhotoRespDto updatePhoto(@PathVariable Long id,
                                     @RequestBody PhotoUpdateReqDto dto) {
         Photo photo = mapper.toModelUpdate(dto);
-        removePhotos.removeOldPhoto(service.get(id));
+        photosUtil.removeOldPhoto(service.get(id));
         return mapper.toDto(service.update(photo, id));
     }
 
     @PostMapping("/delete/old")
     public ResponseEntity deleteOldPhotos(@RequestBody PhotoDeleteReqDto dto) {
-        removePhotos.remove(dto.path());
+        photosUtil.remove(dto.path());
         return ResponseEntity.status(200).build();
     }
 

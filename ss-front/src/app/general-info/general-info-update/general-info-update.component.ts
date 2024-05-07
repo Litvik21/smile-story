@@ -66,11 +66,12 @@ export class GeneralInfoUpdateComponent  implements OnInit  {
       firstName: this.firstName,
       surName: this.lastName,
       sex: this.selectedSex,
-      birthDate: this.birthYear
+      birthDate: this.birthYear,
+      patientId: this.patientId
     };
 
     console.log("UPDATE GENERAL INFO: ", this.updatedGeneralInfo);
-    this.generalInfoService.updateGeneralInfo(this.updatedGeneralInfo, this.patientId).subscribe(
+    this.generalInfoService.updateGeneralInfo(this.updatedGeneralInfo, this.generalInfoId).subscribe(
       generalData => {
         console.log('GeneralInfo: ', generalData)
         console.log(this.localStor.getGeneralDataId())
