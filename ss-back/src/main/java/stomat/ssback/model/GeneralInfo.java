@@ -22,6 +22,9 @@ public class GeneralInfo {
     @Column(name = "sur_name")
     private String surName;
 
+    @Column(name = "phone")
+    private String phone;
+
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
@@ -35,6 +38,7 @@ public class GeneralInfo {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", surName='" + surName + '\'' +
+                ", phone='" + phone + '\'' +
                 ", birthDate=" + birthDate +
                 ", sex=" + sex +
                 '}';

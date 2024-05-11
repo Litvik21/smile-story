@@ -18,6 +18,8 @@ import static stomat.ssback.utils.Constants.*;
 
 public class FileUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
+    private static final String DEFAULT_PHOTO_PATH = "/Users/elena/Desktop/smile-story (Project)/smile-story/ss-front/src/assets/photosBackground/default.png";
+    //private static final String DEFAULT_PHOTO_PATH = "ss-front/src/assets/photosBackground/default.png";
 
     public static String generateUniqueFileName(String originalFileName) {
         if (originalFileName.equals("default.png")) {
@@ -62,7 +64,7 @@ public class FileUtil {
             byte[] decodedBytes = Base64.getDecoder().decode(data);
 
 
-            File file = new File("ss-front/src/assets/newPhoto" + "." + extension);
+            File file = new File(MEDIA_PATH + "newPhoto" + "." + extension);
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(decodedBytes);
             fos.close();
@@ -91,7 +93,7 @@ public class FileUtil {
             try {
                 if (filePath.contains("photosBackground")) {
 
-                    Path source = Paths.get("ss-front/src/assets/photosBackground/default.png");
+                    Path source = Paths.get(DEFAULT_PHOTO_PATH);
                     String fileName = generateUniqueFileName("default.png");
 
                     String dir = MEDIA_PATH + prefix;
@@ -124,7 +126,7 @@ public class FileUtil {
             String originalFilename = file.getOriginalFilename();
             if (originalFilename == null || originalFilename.trim().isEmpty()) {
 
-                Path source = Paths.get("ss-front/src/assets/photosBackground/default.png");
+                Path source = Paths.get(DEFAULT_PHOTO_PATH);
                 String fileName = generateUniqueFileName("default.png");
 
                 String dir = MEDIA_PATH + prefix;
@@ -150,23 +152,6 @@ public class FileUtil {
             }
         } catch (IOException e) {
             throw new RuntimeException("Cannot copy media. Mes: " + e.getMessage());
-        }
-    }
-
-    public static String getPhotoPath(MultipartFile file) {
-        try {
-            File fileImage = convertMultipartFileToFile(file);
-
-            String imageName = generateUniqueFileName(file.getOriginalFilename());
-
-            Path source = Paths.get(fileImage.getAbsolutePath());
-            Path destination = Paths.get(MEDIA_PATH + IMAGE_PREFIX + imageName);
-            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
-
-            fileImage.delete();
-            return destination.toString();
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot copy image. Mes: " + e.getMessage());
         }
     }
 }

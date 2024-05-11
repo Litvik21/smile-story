@@ -1,35 +1,4 @@
 <div class="container">
-<!--  <div class="row">-->
-<!--    <div class="col-md-6">-->
-<!--      <div class="patient-info">-->
-<!--        <h2>Информация о пациенте:</h2>-->
-<!--        <div class="photo-container">-->
-<!--          <img [src]="firstPhoto.frontalPath" alt="Фото пациента" class="photo-thumbnail-first">-->
-<!--        </div>-->
-<!--        <div class="patient-details">-->
-<!--          <p><strong>Имя:</strong> {{ generalInfo.firstName }}</p>-->
-<!--          <p><strong>Фамилия:</strong> {{ generalInfo.surName }}</p>-->
-<!--          <p><strong>Дата рождения:</strong> {{ generalInfo.birthDate }}</p>-->
-<!--          <p><strong>Пол:</strong> {{ mapSex(generalInfo.sex) }}</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="col-md-6">-->
-<!--      <div class="treatment-info">-->
-<!--        <h2>Лечение:</h2>-->
-<!--        <p><strong>Медикаменты:</strong> {{ mapMedication(medication.medication) }}</p>-->
-<!--        <p><strong>Выравнивание:</strong> {{ mapAlignment(medication.alignment) }}</p>-->
-<!--        <p><strong>Экстракции:</strong> {{ mapExtraction(medication.extraction) }}</p>-->
-<!--        <p><strong>Микроимпланты:</strong> {{ mapMicroimplant(medication.microimplant) }}</p>-->
-<!--        <h3>Коррекция:</h3>-->
-<!--        <ul>-->
-<!--          <li *ngFor="let correction of medication.correction">{{ mapCorrection(correction) }}</li>-->
-<!--        </ul>-->
-<!--        <p><strong>Дополнительное описание:</strong> {{ medication.description }}</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
   <div class="row">
     <div class="col-md-6">
       <div class="patient-info">
@@ -44,6 +13,7 @@
           <p><strong>Фамилия:</strong> {{ generalInfo.surName }}</p>
           <p><strong>Дата рождения:</strong> {{ generalInfo.birthDate }}</p>
           <p><strong>Пол:</strong> {{ mapSex(generalInfo.sex) }}</p>
+          <p><strong>Телефон:</strong> {{ (generalInfo.phone) }}</p>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ export interface GeneralInfo {
   firstName: string;
   surName: string;
   sex: Sex;
+  phone: string;
   birthDate: string;
 }
 

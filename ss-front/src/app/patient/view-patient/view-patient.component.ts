@@ -84,6 +84,7 @@ export class ViewPatientComponent implements OnInit {
     this.photoService.getPhoto(firstPhotoId).subscribe(
       photo => {
         this.firstPhoto = photo;
+        console.log(photo.frontalPath);
       }
     )
   }

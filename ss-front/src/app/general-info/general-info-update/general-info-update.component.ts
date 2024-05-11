@@ -22,6 +22,7 @@ export class GeneralInfoUpdateComponent  implements OnInit  {
   lastName: string = '';
   sexes: string[] = Object.values(SexMapping);
   selectedSex: string = '';
+  phone: string = '';
   birthYear: string = '';
   generalInfo: any;
   updatedGeneralInfo: any;
@@ -52,6 +53,7 @@ export class GeneralInfoUpdateComponent  implements OnInit  {
           this.lastName = generalInfo.surName;
           this.birthYear = generalInfo.birthDate;
           this.selectedSex = this.mapSex(generalInfo.sex);
+          this.phone = generalInfo.phone;
         }
       )
     });
@@ -66,6 +68,7 @@ export class GeneralInfoUpdateComponent  implements OnInit  {
       firstName: this.firstName,
       surName: this.lastName,
       sex: this.selectedSex,
+      phone: this.phone,
       birthDate: this.birthYear,
       patientId: this.patientId
     };

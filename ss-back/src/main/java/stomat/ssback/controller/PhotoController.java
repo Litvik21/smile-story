@@ -67,11 +67,11 @@ public class PhotoController {
         return mapper.toDto(service.update(photo, id));
     }
 
-    @PostMapping("/delete/old")
-    public ResponseEntity deleteOldPhotos(@RequestBody PhotoDeleteReqDto dto) {
-        photosUtil.remove(dto.path());
-        return ResponseEntity.status(200).build();
-    }
+//    @PostMapping("/delete/old")
+//    public ResponseEntity deleteOldPhotos(@RequestBody PhotoDeleteReqDto dto) {
+//        photosUtil.remove(dto.path());
+//        return ResponseEntity.status(200).build();
+//    }
 
     @GetMapping("/period{period}")
     public PhotoRespDto getByPeriod(@PathVariable int period) {

@@ -10,6 +10,8 @@ import stomat.ssback.model.photo.Photo;
 import stomat.ssback.service.GeneralInfoService;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static stomat.ssback.utils.Constants.IMAGE_PREFIX;
 import static stomat.ssback.utils.FileUtil.getMediaPath;
@@ -19,6 +21,8 @@ import static stomat.ssback.utils.FileUtil.getMediaPathFromPath;
 @AllArgsConstructor
 public class PhotoMapper {
     private final GeneralInfoService generalInfoService;
+    private final static int ASSERTS_FOLDER_INDEX = 8;
+    //private final static int ASSERTS_FOLDER_INDEX = 2;
 
     public Photo toModel(PhotoReqDto dto) {
         GeneralInfo generalInfo = generalInfoService.get(Long.parseLong(dto.userId()));
@@ -99,6 +103,8 @@ public class PhotoMapper {
     private String toFrontPath(String path) {
         String[] parts = path.split("/");
 
-        return String.join("/", Arrays.copyOfRange(parts, 2, parts.length));
+        //ss-front/src/assets/photosBackground/Фамилия/0/default.png
+        ///Users/elena/Desktop/smile-story (Project)/smile-story/ss-front/src/assets/photosBackground/Фамилия/0/default.png
+        return String.join("/", Arrays.copyOfRange(parts, ASSERTS_FOLDER_INDEX, parts.length));
     }
 }

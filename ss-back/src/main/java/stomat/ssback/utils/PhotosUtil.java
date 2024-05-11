@@ -1,6 +1,8 @@
 package stomat.ssback.utils;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import stomat.ssback.model.Patient;
 import stomat.ssback.model.photo.Photo;
@@ -14,8 +16,13 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class PhotosUtil {
+    private static final Logger log = LoggerFactory.getLogger(PhotosUtil.class);
     private final PatientService patientService;
     private final PhotoService photoService;
+    //private final static int SURNAME_FOLDER_INDEX = 5;
+    private final static int SURNAME_FOLDER_INDEX = 10;
+    private final static int CURRENT_FOLDER_INDEX = 11;
+
 
     public void removeOldPhoto(Photo photo) {
         deleteFile(photo.getFrontalPath());
@@ -56,20 +63,26 @@ public class PhotosUtil {
     }
 
     private String getNewPath(String path, String folderPath) {
+        //ss-front/src/assets/photosBackground/Фамилия/0/default.png
+        ///Users/elena/Desktop/smile-story (Project)/smile-story/ss-front/src/assets/photosBackground/Фамилия/0/default.png
         String[] parts = path.split("/");
-        String pathAfterFolder = String.join("/", Arrays.copyOfRange(parts, 5, parts.length));
+        String pathAfterFolder = String.join("/", Arrays.copyOfRange(parts, CURRENT_FOLDER_INDEX, parts.length));
+        log.info("PathAfterFolder: {}", pathAfterFolder);
+        log.info("newPath: {}", folderPath + "/" + pathAfterFolder);
         return folderPath + "/" + pathAfterFolder;
     }
 
     private String renameFolderName(String path, String folderName) {
         String[] parts = path.split("/");
-        String folderPath = String.join("/", Arrays.copyOfRange(parts, 0, 5));
+        String folderPath = String.join("/", Arrays.copyOfRange(parts, 0, CURRENT_FOLDER_INDEX));
+        log.info("FolderPath: {}", folderPath);
 
         File currentFolder = new File(folderPath);
 
-        StringBuilder newFolderPath = new StringBuilder(String.join("/", Arrays.copyOfRange(parts, 0, 4)));
+        StringBuilder newFolderPath = new StringBuilder(String.join("/", Arrays.copyOfRange(parts, 0, SURNAME_FOLDER_INDEX)));
         newFolderPath.append("/");
         newFolderPath.append(folderName);
+        log.info("NEW FOLDER PATH: {}", newFolderPath);
         File newFolderName = new File(newFolderPath.toString());
 
         if (currentFolder.renameTo(newFolderName)) {
@@ -81,28 +94,28 @@ public class PhotosUtil {
         return currentFolder.getPath();
     }
 
-    public void remove(String frontalPath) {
-        String[] parts = frontalPath.split("/");
-        String folderPath = String.join("/", Arrays.copyOfRange(parts, 0, 5));
-        File folder = new File(folderPath);
-
-        deleteFolder(folder);
-    }
-
-    private void deleteFolder(File folder) {
-        if (folder.isDirectory()) {
-            File[] files = folder.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        deleteFolder(file);
-                    } else {
-                        file.delete();
-                    }
-                }
-            }
-        }
-        folder.delete();
-    }
+//    public void remove(String frontalPath) {
+//        String[] parts = frontalPath.split("/");
+//        String folderPath = String.join("/", Arrays.copyOfRange(parts, 0, SURNAME_FOLDER_INDEX));
+//        File folder = new File(folderPath);
+//
+//        deleteFolder(folder);
+//    }
+//
+//    private void deleteFolder(File folder) {
+//        if (folder.isDirectory()) {
+//            File[] files = folder.listFiles();
+//            if (files != null) {
+//                for (File file : files) {
+//                    if (file.isDirectory()) {
+//                        deleteFolder(file);
+//                    } else {
+//                        file.delete();
+//                    }
+//                }
+//            }
+//        }
+//        folder.delete();
+//    }
 
 }
