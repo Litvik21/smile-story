@@ -92,3 +92,23 @@
 .btn-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
+
+.button-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Добавляет расстояние между кнопками */
+  min-width: 50px;
+  max-width: 150px;/* Устанавливает минимальную ширину для колонок кнопок */
+}
+
+.button-column p {
+  margin: 0;
+}
+
+.button-column .btn {
+  min-height: 40px; /* Устанавливает минимальную высоту для кнопок */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
