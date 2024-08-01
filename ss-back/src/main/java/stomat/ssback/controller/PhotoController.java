@@ -1,6 +1,8 @@
 package stomat.ssback.controller;
 
 import lombok.AllArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -67,11 +69,13 @@ public class PhotoController {
         return mapper.toDto(service.update(photo, id));
     }
 
-//    @PostMapping("/delete/old")
-//    public ResponseEntity deleteOldPhotos(@RequestBody PhotoDeleteReqDto dto) {
-//        photosUtil.remove(dto.path());
-//        return ResponseEntity.status(200).build();
-//    }
+    @DeleteMapping("/delete/{id}")
+    public PhotoRespDto delete(@PathVariable Long id) {
+        Photo photo = service.get(id);
+        photosUtil.removePhotosWithFolder(photo);
+        service.remove(photo);
+        return mapper.toDto(photo);
+    }
 
     @GetMapping("/period{period}")
     public PhotoRespDto getByPeriod(@PathVariable int period) {

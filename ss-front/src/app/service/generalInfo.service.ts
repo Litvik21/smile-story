@@ -6,7 +6,7 @@ import {GeneralInfo} from "../model/GeneralInfo";
 
 @Injectable({providedIn: 'root'})
 export class GeneralInfoService {
-  private generalInfoUrl = environment.urlPath + '/patient/general-info';
+  private url = environment.urlPath + '/patient/general-info';
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -15,26 +15,20 @@ export class GeneralInfoService {
   }
 
   addGeneralInfo(formData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.generalInfoUrl}/add`, formData, this.httpOptions).pipe(
+    return this.http.post<any>(`${this.url}/add`, formData, this.httpOptions).pipe(
       catchError(this.handleError<any>('addGeneralInfo'))
     );
   }
 
-  getGeneralInfos(): Observable<GeneralInfo[]> {
-    return this.http.get<GeneralInfo[]>(this.generalInfoUrl, this.httpOptions).pipe(
-      catchError(this.handleError<GeneralInfo[]>('getGeneralInfos', []))
-    );
-  }
-
   updateGeneralInfo(data: any, id: number): Observable<any> {
-    const url = `${this.generalInfoUrl}/update/${id}`;
+    const url = `${this.url}/update/${id}`;
     return this.http.put<any>(url, data, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateGeneralInfo'))
     );
   }
 
   getGeneralInfo(id: number): Observable<GeneralInfo> {
-    const url = `${this.generalInfoUrl}/${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.get<GeneralInfo>(url, this.httpOptions).pipe(
       catchError(this.handleError<GeneralInfo>(`getGeneralInfo id=${id}`))
     );

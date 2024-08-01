@@ -63,4 +63,9 @@ public class PhotoServiceImpl implements PhotoService {
     public List<Photo> getAllByPatient(PatientPhotosReqDto dto) {
         return dto.ids().stream().map(this::get).toList();
     }
+
+    @Override
+    public void remove(Photo photo) {
+        repository.delete(photo);
+    }
 }

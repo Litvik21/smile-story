@@ -6,6 +6,7 @@ import stomat.ssback.dto.GeneralInfoRespDto;
 import stomat.ssback.model.GeneralInfo;
 import stomat.ssback.model.Sex;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,6 +29,7 @@ public class GeneralInfoMapper {
 
     public GeneralInfoRespDto toDto(GeneralInfo generalInfo) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        int years = Period.between(generalInfo.getBirthDate(), LocalDate.now()).getYears();
 
         return new GeneralInfoRespDto(generalInfo.getId(),
                 generalInfo.getFirstName(),

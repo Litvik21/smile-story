@@ -33,7 +33,27 @@ public class PhotosUtil {
         deleteFile(photo.getIntraoralFrontalPath());
         deleteFile(photo.getRightSideLateralPath());
         deleteFile(photo.getLeftSideLateralPath());
-        System.out.println("OLD FILES DELETED!");
+        log.info("Old photos removed");
+    }
+
+    public void removePhotosWithFolder(Photo photo) {
+        removeOldPhoto(photo);
+        String[] parts = photo.getFrontalPath().split("/");
+        String folderPath = String.join("/", Arrays.copyOfRange(parts, 0, CURRENT_FOLDER_INDEX));
+        deleteFolder(new File(folderPath));
+        log.info("FOLDER DELETED: {}", folderPath);
+    }
+
+    private void deleteFolder(File folder) {
+        if (folder.isDirectory()) {
+            File[] files = folder.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    deleteFolder(file);
+                }
+            }
+        }
+        folder.delete();
     }
 
     private void deleteFile(String path) {
@@ -93,29 +113,4 @@ public class PhotosUtil {
         }
         return currentFolder.getPath();
     }
-
-//    public void remove(String frontalPath) {
-//        String[] parts = frontalPath.split("/");
-//        String folderPath = String.join("/", Arrays.copyOfRange(parts, 0, SURNAME_FOLDER_INDEX));
-//        File folder = new File(folderPath);
-//
-//        deleteFolder(folder);
-//    }
-//
-//    private void deleteFolder(File folder) {
-//        if (folder.isDirectory()) {
-//            File[] files = folder.listFiles();
-//            if (files != null) {
-//                for (File file : files) {
-//                    if (file.isDirectory()) {
-//                        deleteFolder(file);
-//                    } else {
-//                        file.delete();
-//                    }
-//                }
-//            }
-//        }
-//        folder.delete();
-//    }
-
 }

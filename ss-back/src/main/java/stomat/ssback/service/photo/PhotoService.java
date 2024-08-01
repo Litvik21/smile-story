@@ -20,4 +20,6 @@ public interface PhotoService {
                          Long patientId);
 
     List<Photo> getAllByPatient(PatientPhotosReqDto dto);
+
+    void remove(Photo photo);
 }

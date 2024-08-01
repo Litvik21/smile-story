@@ -126,7 +126,20 @@ export class ViewPatientComponent implements OnInit {
   }
 
   deletePatient(patientId: any): void {
-    this.patientService.removePatient(patientId);
+    this.photos.forEach(photo => {
+      this.photoService.remove(photo.id).subscribe(
+        photo => {
+          console.log('PHOTO DELETED: ', photo);
+        }
+      )
+    });
+    console.log('Patient ID: ', patientId);
+    this.patientService.removePatient(patientId).subscribe(
+      patient => {
+        console.log('PATIENT DELETED: ', patient);
+      }
+    );
+
     this.router.navigate(['/patients']).then(() => window.location.reload());
   }
 
@@ -158,5 +171,20 @@ export class ViewPatientComponent implements OnInit {
 
   addNewPhotoToList(patientId: any, infoId: any): void {
     this.router.navigate(['photo/add-to-list/', patientId, infoId]);
+  }
+
+  transform(value: string): string {
+    if (!value) return value;
+
+    const birthDate = new Date(value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age.toString();
   }
 }

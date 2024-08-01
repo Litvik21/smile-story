@@ -4,7 +4,7 @@
     <th>#</th>
     <th>Имя</th>
     <th>Фамилия</th>
-    <th>Дата рождения</th>
+    <th>Возраст</th>
     <th>Фото</th>
     <th>Действия</th>
   </tr>
@@ -14,7 +14,7 @@
     <td>{{ i + 1 }}</td>
     <td>{{ patient.generalInfo?.firstName }}</td>
     <td>{{ patient.generalInfo?.surName }}</td>
-    <td>{{ patient.generalInfo?.birthDate }}</td>
+    <td>{{ transform(patient.generalInfo?.birthDate) }}</td>
     <td><img [src]="patient.photos[0].frontalPath" alt="Фото пациента" class="photo-thumbnail" ></td>
     <td>
 <!--      <button class="btn-edit" (click)="editPatient(patient.id)">Редактировать</button>-->

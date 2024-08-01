@@ -11,15 +11,17 @@ import {
 import {WishesMedicationService} from "../../service/wishesMedication.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LocalStor} from "../../service/localStor";
+import {AutosizeModule} from "ngx-autosize";
 
 @Component({
   selector: 'app-medication-update',
   standalone: true,
-    imports: [
-        FormsModule,
-        NgForOf,
-        ReactiveFormsModule
-    ],
+  imports: [
+    FormsModule,
+    NgForOf,
+    ReactiveFormsModule,
+    AutosizeModule
+  ],
   templateUrl: './medication-update.component.html',
   styleUrl: './medication-update.component.scss'
 })

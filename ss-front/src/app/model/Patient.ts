@@ -13,5 +13,5 @@ export interface Patient {
   wishesMedication: WishesMedication;
   photos: Photo[];
   scans: Scan[];
-  addingDate: Date;
+  addingDate: string;
 }

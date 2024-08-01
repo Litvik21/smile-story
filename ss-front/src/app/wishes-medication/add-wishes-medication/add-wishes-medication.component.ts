@@ -6,13 +6,15 @@ import {Router} from "@angular/router";
 import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {LocalStor} from "../../service/localStor";
+import {AutosizeModule} from "ngx-autosize";
 
 @Component({
   selector: 'app-add-wishes-medication',
   standalone: true,
   imports: [
     NgForOf,
-    FormsModule
+    FormsModule,
+    AutosizeModule
   ],
   templateUrl: './add-wishes-medication.component.html',
   styleUrl: './add-wishes-medication.component.scss'

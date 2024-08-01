@@ -8,7 +8,7 @@ import {WishesMedication} from "../model/WishesMedication";
 
 @Injectable({providedIn: 'root'})
 export class WishesMedicationService {
-  private medicationUrl = environment.urlPath + '/patient/medication';
+  private url = environment.urlPath + '/patient/medication';
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
@@ -18,34 +18,34 @@ export class WishesMedicationService {
 
   addWishesMedication(formData: FormData): Observable<any> {
     console.log(formData)
-    return this.http.post<any>(`${this.medicationUrl}/add`, formData, this.httpOptions).pipe(
+    return this.http.post<any>(`${this.url}/add`, formData, this.httpOptions).pipe(
       catchError(this.handleError<any>('addPatient'))
     );
   }
 
   updateWishesMedication(data: any, id: number): Observable<any> {
-    const url = `${this.medicationUrl}/update/${id}`;
+    const url = `${this.url}/update/${id}`;
     return this.http.put<any>(url, data, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateWishesMedication'))
     );
   }
 
   getMedications(): Observable<WishesMedication[]> {
-    const url = `${this.medicationUrl}/all`;
+    const url = `${this.url}/all`;
     return this.http.get<WishesMedication[]>(url, this.httpOptions).pipe(
       catchError(this.handleError<WishesMedication[]>('getPatients', []))
     );
   }
 
   getWishesMedication(id: number): Observable<WishesMedication> {
-    const url = `${this.medicationUrl}/${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.get<WishesMedication>(url, this.httpOptions).pipe(
       catchError(this.handleError<WishesMedication>(`getWishesMedication id=${id}`))
     );
   }
 
   findByFirstName(firstName: string): Observable<Patient[]> {
-    const url = `${this.medicationUrl}/name?name=${firstName}`;
+    const url = `${this.url}/name?name=${firstName}`;
     return this.http.get<Patient[]>(url, this.httpOptions).pipe(
       catchError(this.handleError<Patient[]>('findByFirstName', []))
     );

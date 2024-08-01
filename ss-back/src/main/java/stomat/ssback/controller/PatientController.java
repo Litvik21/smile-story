@@ -1,9 +1,10 @@
 package stomat.ssback.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stomat.ssback.dto.PatientPhotoPeriodsRespDto;
-import stomat.ssback.dto.PatientReqDto;
 import stomat.ssback.dto.PatientRespDto;
 import stomat.ssback.dto.PatientSaveDto;
 import stomat.ssback.mapper.PatientMapper;

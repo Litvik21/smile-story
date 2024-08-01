@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {GeneralInfoService} from "../../service/generalInfo.service";
 import {LocalStor} from "../../service/localStor";
