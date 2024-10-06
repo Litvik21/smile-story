@@ -19,9 +19,12 @@ public class PhotosUtil {
     private static final Logger log = LoggerFactory.getLogger(PhotosUtil.class);
     private final PatientService patientService;
     private final PhotoService photoService;
-    //private final static int SURNAME_FOLDER_INDEX = 5;
-    private final static int SURNAME_FOLDER_INDEX = 10;
-    private final static int CURRENT_FOLDER_INDEX = 11;
+    private final static int PARTS_IN_DEF_PATH = System.getProperty("path").split("/").length;
+    private final static int SURNAME_FOLDER_INDEX = PARTS_IN_DEF_PATH + 1;
+    private final static int CURRENT_FOLDER_INDEX = PARTS_IN_DEF_PATH + 2;
+
+    //private final static int SURNAME_FOLDER_INDEX = 10;
+    //private final static int CURRENT_FOLDER_INDEX = 11;
 
 
     public void removeOldPhoto(Photo photo) {
@@ -85,6 +88,7 @@ public class PhotosUtil {
     private String getNewPath(String path, String folderPath) {
         //ss-front/src/assets/photosBackground/Фамилия/0/default.png
         ///Users/elena/Desktop/smile-story (Project)/smile-story/ss-front/src/assets/photosBackground/Фамилия/0/default.png
+        ///Users/litvik/Work/Projects/smile-story/ss-front/src/assets/images/Testet/0/b81a9048-3bf0-4b4d-9b4b-ade6194954e3.jpg
         String[] parts = path.split("/");
         String pathAfterFolder = String.join("/", Arrays.copyOfRange(parts, CURRENT_FOLDER_INDEX, parts.length));
         log.info("PathAfterFolder: {}", pathAfterFolder);

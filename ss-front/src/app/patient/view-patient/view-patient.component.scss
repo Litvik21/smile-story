@@ -6,6 +6,10 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.description {
+  white-space: pre-wrap;
+}
+
 .patient-info h2,
 .treatment-info h2 {
   color: #343a40;

@@ -30,7 +30,7 @@
             <ul>
               <li *ngFor="let correction of medication.correction">{{ mapCorrection(correction) }}</li>
             </ul>
-            <p><strong>Дополнительное описание:</strong> {{ medication.description }}</p>
+            <p class="description" ><strong>Дополнительное описание:</strong> {{ medication.description }}</p>
           </div>
           <div class="button-column">
             <p><button class="btn btn-secondary btn-delete" (click)="deletePatient(patient.id)">Удалить пациента</button></p>

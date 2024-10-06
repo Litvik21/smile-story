@@ -15,6 +15,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import { AddGeneralInfoComponent } from './general-info/addGeneralInfo/addGeneralInfo.component';
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import {AutosizeModule} from "ngx-autosize";
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {AutosizeModule} from "ngx-autosize";
     MatInputModule,
     MatDatepickerModule,
     NgbDatepickerModule,
+    MatNativeDateModule,
     AutosizeModule
   ],
   providers: [

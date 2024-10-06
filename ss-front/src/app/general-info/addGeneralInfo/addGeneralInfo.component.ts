@@ -14,7 +14,8 @@ export class AddGeneralInfoComponent implements OnInit {
   lastName: string = '';
   sexes: string[] = Object.values(SexMapping);
   selectedSex: string = '';
-  birthYear: string = '';
+  //birthYear: string = '';
+  birthYear: Date = new Date;
   phone: any;
   newGeneralInfo: any;
 
@@ -27,13 +28,32 @@ export class AddGeneralInfoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onDateChange(event: any) {
+    console.log('Выбраная дата:', event.value);
+    this.birthYear = event.value;
+  }
+
+
+  get formattedDate(): string | null {
+    if (this.birthYear) {
+      const year = this.birthYear.getFullYear();
+      const month = String(this.birthYear.getMonth() + 1).padStart(2, '0'); // Месяцы с 0
+      const day = String(this.birthYear.getDate()).padStart(2, '0'); // Дни
+      return `${year}-${month}-${day}`; // Формат yyyy-MM-dd
+    }
+    return null;
+  }
+
+
   submit() {
+    console.log('Date: ' + this.birthYear)
+    console.log('Date STRING: ' + this.formattedDate)
     this.newGeneralInfo = {
       firstName: this.firstName,
       surName: this.lastName,
       sex: this.selectedSex,
       phone: this.phone,
-      birthDate: this.birthYear
+      birthDate: this.formattedDate
     };
 
     this.generalInfoService.addGeneralInfo(this.newGeneralInfo).subscribe(

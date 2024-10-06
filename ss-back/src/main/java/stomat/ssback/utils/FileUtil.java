@@ -18,8 +18,7 @@ import static stomat.ssback.utils.Constants.*;
 
 public class FileUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
-    private static final String DEFAULT_PHOTO_PATH = "/Users/elena/Desktop/smile-story (Project)/smile-story/ss-front/src/assets/photosBackground/default.png";
-    //private static final String DEFAULT_PHOTO_PATH = "ss-front/src/assets/photosBackground/default.png";
+    private static final String DEFAULT_PHOTO_PATH = System.getProperty("path") + "photosBackground/default.png";
 
     public static String generateUniqueFileName(String originalFileName) {
         if (originalFileName.equals("default.png")) {
