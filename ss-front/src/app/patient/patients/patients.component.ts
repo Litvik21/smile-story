@@ -7,19 +7,26 @@ import {Router} from "@angular/router";
 import {PhotoService} from "../../service/photo.service";
 import {ScanSerivce} from "../../service/scan.serivce";
 import {forkJoin, map, switchMap} from "rxjs";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-patients',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    FormsModule,
+    NgIf,
+    NgOptimizedImage
   ],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.scss'
 })
 export class PatientsComponent  implements OnInit  {
   patients: Patient[] = [];
+  isLoading: boolean = true;
+  filteredPatients: Patient[] = [];
+  searchQuery: string = '';
 
   constructor(private patientService: PatientService,
               private generalInfo: GeneralInfoService,
@@ -33,10 +40,12 @@ export class PatientsComponent  implements OnInit  {
   }
 
   getPatients(): void {
+    this.isLoading = true;
     this.patientService.getPatients().subscribe(
       patients => {
         if (patients.length < 0) {
           console.log("Don't have posts yet!")
+          this.isLoading = false;
           return;
         }
         console.log('1 PAT', patients)
@@ -70,7 +79,17 @@ export class PatientsComponent  implements OnInit  {
 
         console.log(patients)
         this.patients = patients;
+        this.filteredPatients = patients;
+        this.isLoading = false;
       }
+    );
+  }
+
+  filterPatients(): void {
+    const query = this.searchQuery.toLowerCase();
+    this.filteredPatients = this.patients.filter(patient =>
+      (patient.generalInfo?.firstName.toLowerCase().includes(query) ||
+        patient.generalInfo?.surName.toLowerCase().includes(query))
     );
   }
 

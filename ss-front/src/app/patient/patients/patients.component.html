@@ -1,4 +1,13 @@
-<table class="patients-table">
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchQuery" (input)="filterPatients()" placeholder="Поиск по имени или фамилии" class="search-input"/>
+</div>
+
+<div *ngIf="isLoading" class="loading-spinner">
+  <p class="loading-text">Загрузка пациентов...</p>
+  <img src="https://media.giphy.com/media/3ohBV3swUjlLSwyaTm/giphy.gif" alt="Загрузка..."/>
+</div>
+
+<table *ngIf="!isLoading" class="patients-table">
   <thead>
   <tr>
     <th>#</th>
@@ -10,14 +19,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let patient of patients; let i = index">
+  <tr *ngFor="let patient of filteredPatients; let i = index">
     <td>{{ i + 1 }}</td>
     <td>{{ patient.generalInfo?.firstName }}</td>
     <td>{{ patient.generalInfo?.surName }}</td>
     <td>{{ transform(patient.generalInfo?.birthDate) }}</td>
-    <td><img [src]="patient.photos[0].frontalPath" alt="Фото пациента" class="photo-thumbnail" ></td>
+    <td><img [src]="patient.photos[0]?.frontalPath" alt="Фото пациента" class="photo-thumbnail"></td>
     <td>
-<!--      <button class="btn-edit" (click)="editPatient(patient.id)">Редактировать</button>-->
       <button class="btn-view" (click)="viewPatient(patient.id)">Просмотр</button>
     </td>
   </tr>
