@@ -1,12 +1,16 @@
-import {Component, NgZone} from '@angular/core';
-import {AlignmentMapping, CorrectionMapping, ExtractionMapping,
-  MedicationMapping, MicroimplantMapping, WishesMedication} from "../../model/WishesMedication";
+import {Component, NgZone, OnInit} from '@angular/core';
+import {
+  Alignment,
+  AlignmentMapping, Correction, CorrectionMapping, Extraction, ExtractionMapping, Medication,
+  MedicationMapping, Microimplant, MicroimplantMapping, WishesMedication
+} from "../../model/WishesMedication";
 import {WishesMedicationService} from "../../service/wishesMedication.service";
 import {Router} from "@angular/router";
 import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {LocalStor} from "../../service/localStor";
 import {AutosizeModule} from "ngx-autosize";
+import {LocalStorageMedAndGeneral} from "../../service/local.storage.med.and.general";
 
 @Component({
   selector: 'app-add-wishes-medication',
@@ -19,7 +23,7 @@ import {AutosizeModule} from "ngx-autosize";
   templateUrl: './add-wishes-medication.component.html',
   styleUrl: './add-wishes-medication.component.scss'
 })
-export class AddWishesMedicationComponent {
+export class AddWishesMedicationComponent implements OnInit{
   medications: string[] = Object.values(MedicationMapping);
   selectedMedication: string = '';
 
@@ -42,7 +46,25 @@ export class AddWishesMedicationComponent {
 
   constructor(private wishesMedicationService: WishesMedicationService,
               private router: Router,
-              private localStor: LocalStor) { }
+              private localStor: LocalStor,
+              private storage: LocalStorageMedAndGeneral) { }
+
+  ngOnInit(): void {
+    if (this.storage.hasMedication()) {
+      const med = this.storage.getMedication();
+      console.log('Данные профиля:', med);
+
+      this.med = med;
+      this.selectedMedication = this.mapMedication(med.medication);
+      this.selectedAlignment = this.mapAlignment(med.alignment);
+      this.selectedExtraction = this.mapExtraction(med.extraction);
+      this.selectedMicroimplant = this.mapMicroimplant(med.microimplant);
+      this.initializeSelectedCorrection();
+      this.description = med.description;
+    } else {
+      console.log('Данных профиля нет в localStorage.');
+    }
+  }
 
   isSelected(correction: string): boolean {
     return this.selectedCorrections[correction] || false;
@@ -89,6 +111,7 @@ export class AddWishesMedicationComponent {
       this.wishesMedicationService.addWishesMedication(this.med).subscribe(
         med => {
           console.log(med)
+          this.storage.setMedication(med);
           this.localStor.setMedId(med.id);
           console.log("Med ID: ")
           console.log(this.localStor.getMedId())
@@ -96,6 +119,33 @@ export class AddWishesMedicationComponent {
         }
       );
     }
+  }
+
+  initializeSelectedCorrection(): void {
+    console.log(this.med.correction);
+    for (const correction of this.med.correction) {
+      this.selectedCorrections[this.mapCorrection(correction)] = true;
+    }
+  }
+
+  mapCorrection(correction: Correction): string {
+    return Correction[correction as unknown as keyof typeof Correction];
+  }
+
+  mapMedication(medication: Medication): string {
+    return Medication[medication as unknown as keyof typeof Medication];
+  }
+
+  mapAlignment(alignment: Alignment): string {
+    return Alignment[alignment as unknown as keyof typeof Alignment];
+  }
+
+  mapExtraction(extraction: Extraction): string {
+    return Extraction[extraction as unknown as keyof typeof Extraction];
+  }
+
+  mapMicroimplant(microimplant: Microimplant): string {
+    return Microimplant[microimplant as unknown as keyof typeof Microimplant];
   }
 
   goToPreviousPage(): void {

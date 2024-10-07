@@ -6,6 +6,7 @@ import {LocalStor} from "../../service/localStor";
 import {FormsModule} from "@angular/forms";
 import {PhotoService} from "../../service/photo.service";
 import {PatientService} from "../../service/patient.service";
+import {LocalStorageMedAndGeneral} from "../../service/local.storage.med.and.general";
 
 @Component({
   selector: 'app-add-photos',
@@ -43,7 +44,8 @@ export class AddPhotosComponent {
   constructor(private router: Router,
               private photoService: PhotoService,
               private localStor: LocalStor,
-              private patientService: PatientService) {
+              private patientService: PatientService,
+              private storage: LocalStorageMedAndGeneral) {
   }
 
 
@@ -83,6 +85,7 @@ export class AddPhotosComponent {
     )
 
     this.localStor.removeToken();
+    this.storage.removeData();
   }
 
   goToPreviousPage(): void {

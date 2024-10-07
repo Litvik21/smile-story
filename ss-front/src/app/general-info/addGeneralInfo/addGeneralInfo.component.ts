@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {GeneralInfoService} from "../../service/generalInfo.service";
 import {LocalStor} from "../../service/localStor";
-import {SexMapping} from "../../model/GeneralInfo";
+import {Sex, SexMapping} from "../../model/GeneralInfo";
+import {LocalStorageMedAndGeneral} from "../../service/local.storage.med.and.general";
 
 @Component({
   selector: 'app-addGeneralInfo',
@@ -14,18 +15,39 @@ export class AddGeneralInfoComponent implements OnInit {
   lastName: string = '';
   sexes: string[] = Object.values(SexMapping);
   selectedSex: string = '';
-  //birthYear: string = '';
-  birthYear: Date = new Date;
+  birthYear: Date | null = null;
   phone: any;
   newGeneralInfo: any;
 
   constructor(private router: Router,
               private generalInfoService: GeneralInfoService,
-              private localStor: LocalStor) {
+              private localStor: LocalStor,
+              private storage: LocalStorageMedAndGeneral) {
   }
 
 
   ngOnInit(): void {
+    if (this.storage.hasGeneralInfo()) {
+      const generalInfo = this.storage.getGeneralInfo();
+      console.log('Данные профиля:', generalInfo);
+
+      this.firstName = generalInfo.firstName;
+      this.lastName = generalInfo.surName;
+      if (generalInfo.sex === 'Мужчина') {
+        generalInfo.sex = 'MAN';
+      } else {
+        generalInfo.sex = 'WOMAN';
+      }
+      this.selectedSex = this.mapSex(generalInfo.sex);
+      this.phone = generalInfo.phone;
+      this.setBirthYearFromString(generalInfo.birthDate);
+    } else {
+      console.log('Данных профиля нет в localStorage.');
+    }
+  }
+
+  mapSex(sex: Sex): string {
+    return Sex[sex as unknown as keyof typeof Sex];
   }
 
   onDateChange(event: any) {
@@ -33,6 +55,17 @@ export class AddGeneralInfoComponent implements OnInit {
     this.birthYear = event.value;
   }
 
+  setBirthYearFromString(dateString: string): void {
+    if (dateString) {
+      const parts = dateString.split('-');
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1;
+      const day = parseInt(parts[2], 10);
+      this.birthYear = new Date(year, month, day);
+    } else {
+      this.birthYear = new Date();
+    }
+  }
 
   get formattedDate(): string | null {
     if (this.birthYear) {
@@ -56,6 +89,8 @@ export class AddGeneralInfoComponent implements OnInit {
       birthDate: this.formattedDate
     };
 
+    this.storage.setGeneralInfo(this.newGeneralInfo);
+
     this.generalInfoService.addGeneralInfo(this.newGeneralInfo).subscribe(
       generalData => {
         console.log(generalData)
@@ -68,6 +103,7 @@ export class AddGeneralInfoComponent implements OnInit {
   }
 
   goToPreviousPage(): void {
+    this.storage.removeData();
     this.router.navigate(['/patients']);
   }
 }

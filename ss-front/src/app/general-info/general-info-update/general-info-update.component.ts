@@ -86,6 +86,7 @@ export class GeneralInfoUpdateComponent  implements OnInit  {
 
       this.generalInfoService.getGeneralInfo(this.generalInfoId).subscribe(
         generalInfo => {
+          console.log('Данные профиля:', generalInfo);
           this.generalInfo = generalInfo;
           this.firstName = generalInfo.firstName;
           this.lastName = generalInfo.surName;
