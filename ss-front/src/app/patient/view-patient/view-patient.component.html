@@ -6,7 +6,7 @@
           <h2 class="mb-0">Информация о пациенте:</h2>
         </div>
         <div class="photo-container">
-          <img [src]="firstPhoto.frontalPath" alt="Фото пациента" class="photo-thumbnail-first">
+          <img *ngIf="firstPhoto.frontalPath" [src]="firstPhoto.frontalPath" alt="Фото пациента" class="photo-thumbnail-first">
         </div>
         <div class="patient-details">
           <p><strong>Имя:</strong> {{ generalInfo.firstName }}</p>

@@ -21,10 +21,10 @@
   <tbody>
   <tr *ngFor="let patient of filteredPatients; let i = index">
     <td>{{ i + 1 }}</td>
-    <td>{{ patient.generalInfo?.firstName }}</td>
-    <td>{{ patient.generalInfo?.surName }}</td>
-    <td>{{ transform(patient.generalInfo?.birthDate) }}</td>
-    <td><img [src]="patient.photos[0]?.frontalPath" alt="Фото пациента" class="photo-thumbnail"></td>
+    <td *ngIf="patient.generalInfo?.firstName"> {{ patient.generalInfo.firstName }}</td>
+    <td *ngIf="patient.generalInfo?.surName"> {{ patient.generalInfo.surName }}</td>
+    <td *ngIf="patient.generalInfo?.birthDate"> {{ transform(patient.generalInfo.birthDate) }}</td>
+    <td *ngIf="patient.photos?.length"><img [src]="patient.photos[0].frontalPath" alt="Фото пациента" class="photo-thumbnail"></td>
     <td>
       <button class="btn-view" (click)="viewPatient(patient.id)">Просмотр</button>
     </td>
