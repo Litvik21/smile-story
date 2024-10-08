@@ -8,7 +8,6 @@ import stomat.ssback.mapper.GeneralInfoMapper;
 import stomat.ssback.model.GeneralInfo;
 import stomat.ssback.service.GeneralInfoService;
 import stomat.ssback.utils.PhotosUtil;
-
 import java.util.List;
 
 @RestController

@@ -18,6 +18,7 @@ import {
 } from "../../model/WishesMedication";
 import {FormsModule} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
+import {TextInputModalComponent} from "./text-input-modal.component";
 
 @Component({
   selector: 'app-view-patient',
@@ -25,7 +26,8 @@ import {NgForOf, NgIf} from "@angular/common";
   imports: [
     FormsModule,
     NgForOf,
-    NgIf
+    NgIf,
+    TextInputModalComponent
   ],
   templateUrl: './view-patient.component.html',
   styleUrl: './view-patient.component.scss'
@@ -41,6 +43,8 @@ export class ViewPatientComponent implements OnInit {
   currentPeriod = 0;
   showPhotos = false;
   loadPhotos = false;
+  isModalOpen: boolean = false;
+  descrUpdate: any;
 
   mapSex(sex: Sex): string {
     return Sex[sex as unknown as keyof typeof Sex];
@@ -123,6 +127,29 @@ export class ViewPatientComponent implements OnInit {
   editTreatment(medId: any, patientId: any): void {
     console.log('MED ID: ', medId)
     this.router.navigate(['/medication/update', medId, patientId]);
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  onTextSubmitted(text: string, medicationId: any, patientId: any) {
+    console.log('Text submitted:', text);
+    this.isModalOpen = false;
+    this.updateDecsr(medicationId, patientId, text);
+  }
+
+  updateDecsr(medId: any, patientId: any, text: string): void {
+    console.log('MED ID: ', medId)
+    this.descrUpdate = {
+      description: text
+    };
+    this.medicationService.updateDescription(this.descrUpdate, medId).subscribe(
+      med => {
+        console.log('MED: ' + med);
+        window.location.reload();
+      }
+    )
   }
 
   deletePatient(patientId: any): void {

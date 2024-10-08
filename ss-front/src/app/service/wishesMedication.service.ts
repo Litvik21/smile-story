@@ -30,6 +30,15 @@ export class WishesMedicationService {
     );
   }
 
+  updateDescription(data: any, id: number): Observable<any> {
+    console.log('Data: ' + data);
+    const url = `${this.url}/update/desc/${id}`;
+    console.log('URl: ' + url);
+    return this.http.put<any>(url, data, this.httpOptions).pipe(
+      catchError(this.handleError<any>('updateDescription'))
+    );
+  }
+
   getMedications(): Observable<WishesMedication[]> {
     const url = `${this.url}/all`;
     return this.http.get<WishesMedication[]>(url, this.httpOptions).pipe(

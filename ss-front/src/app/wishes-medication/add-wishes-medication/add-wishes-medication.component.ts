@@ -108,13 +108,19 @@ export class AddWishesMedicationComponent implements OnInit{
         description: this.description
       }
 
+      if (this.localStor.hasMedId()) {
+        this.wishesMedicationService.updateWishesMedication(this.med, Number(this.localStor.getMedId())).subscribe(
+          med => {
+            this.router.navigate(['/photos/add']);
+          }
+        );
+      }
+
       this.wishesMedicationService.addWishesMedication(this.med).subscribe(
         med => {
           console.log(med)
           this.storage.setMedication(med);
           this.localStor.setMedId(med.id);
-          console.log("Med ID: ")
-          console.log(this.localStor.getMedId())
           this.router.navigate(['/photos/add']);
         }
       );

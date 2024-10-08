@@ -20,6 +20,14 @@ export class LocalStor {
     });
   }
 
+  hasGeneralId(): boolean {
+    return localStorage.getItem(this.GENERAL_DATA_ID) !== null;
+  }
+
+  hasMedId(): boolean {
+    return localStorage.getItem(this.MEDICATION_ID) !== null;
+  }
+
   getGeneralDataId(): string {
     const id = localStorage.getItem(this.GENERAL_DATA_ID);
     return JSON.parse(id!);

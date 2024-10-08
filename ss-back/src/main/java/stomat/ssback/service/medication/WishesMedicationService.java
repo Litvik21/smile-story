@@ -10,6 +10,8 @@ public interface WishesMedicationService {
     WishesMedication update(WishesMedication wishesMedication,
                             Long id);
 
+    WishesMedication updateDescription(String description, Long id);
+
     WishesMedication get(Long id);
 
     List<WishesMedication> getAll();

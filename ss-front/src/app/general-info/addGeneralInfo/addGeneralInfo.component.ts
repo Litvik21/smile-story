@@ -79,8 +79,6 @@ export class AddGeneralInfoComponent implements OnInit {
 
 
   submit() {
-    console.log('Date: ' + this.birthYear)
-    console.log('Date STRING: ' + this.formattedDate)
     this.newGeneralInfo = {
       firstName: this.firstName,
       surName: this.lastName,
@@ -89,14 +87,20 @@ export class AddGeneralInfoComponent implements OnInit {
       birthDate: this.formattedDate
     };
 
+    if (this.localStor.hasGeneralId()) {
+      this.generalInfoService.updateGeneralInfo(this.newGeneralInfo, Number(this.localStor.getGeneralDataId())).subscribe(
+        generalData => {
+          this.router.navigate(['/medication/add']);
+        }
+      );
+    }
     this.storage.setGeneralInfo(this.newGeneralInfo);
 
     this.generalInfoService.addGeneralInfo(this.newGeneralInfo).subscribe(
       generalData => {
         console.log(generalData)
         this.localStor.setGeneralDataId(generalData.id);
-        console.log("General ID: ")
-        console.log(this.localStor.getGeneralDataId())
+        console.log('General ID: ' + this.localStor.getGeneralDataId())
         this.router.navigate(['/medication/add']);
       }
     );

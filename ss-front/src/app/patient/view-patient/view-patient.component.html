@@ -36,6 +36,16 @@
             <p><button class="btn btn-secondary btn-delete" (click)="deletePatient(patient.id)">Удалить пациента</button></p>
             <p><button class="btn btn-secondary" (click)="editGeneralInfo(generalInfo.id, patient.id)">Редактировать информацию</button></p>
             <p><button class="btn btn-secondary" (click)="editTreatment(medication.id, patient.id)">Редактировать лечение</button></p>
+            <p>
+              <button class="btn btn-secondary btn-descr" (click)="openModal()">Новая запись</button>
+            </p>
+
+            <app-text-input-modal
+              *ngIf="isModalOpen"
+              (textSubmitted)="onTextSubmitted($event, medication.id, patient.id)"
+              (closeModalEvent)="isModalOpen = false">
+            </app-text-input-modal>
+
           </div>
         </div>
       </div>
